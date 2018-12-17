@@ -16,9 +16,9 @@ public class Grid : MonoBehaviour
     {
         // TODO check who wins
     }
-
+    
     /// <summary>
-    /// When a player set a tile on the grid
+    /// When a player drop a tile on the grid
     /// </summary>
     public void SetTileAt(ITile tile)
     {
