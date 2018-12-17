@@ -14,7 +14,7 @@ namespace Assets.Scripts
 
         public Grid grid;
 
-        public int period = 1;
+        public int period = 3;
 
         void Start()
         {

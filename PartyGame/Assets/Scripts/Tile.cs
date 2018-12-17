@@ -62,5 +62,20 @@ namespace Assets.Scripts
             State = TileState.Dropped;
         }
 
+        void OnMouseDown()
+        {
+            Hold();
+        }
+
+        void OnMouseDrag()
+        {
+            var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            gameObject.transform.position = new Vector3(pos.x, pos.y, this.transform.position.z);
+        }
+
+        void OnMouseUpAsButton()
+        {
+            Drop();
+        }
     }
 }

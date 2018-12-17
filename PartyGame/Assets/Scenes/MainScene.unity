@@ -124,6 +124,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MoonTile
       objectReference: {fileID: 0}
+    - target: {fileID: 1719912169352114728, guid: a726b3e9a6abe8e49b0f93e2d011291c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1719912169352114731, guid: a726b3e9a6abe8e49b0f93e2d011291c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -237,7 +242,7 @@ MonoBehaviour:
   sunPrefab: {fileID: 245762451}
   moonPrefab: {fileID: 17336805}
   grid: {fileID: 492247407}
-  period: 1
+  period: 3
 --- !u!4 &216271091
 Transform:
   m_ObjectHideFlags: 0
@@ -263,6 +268,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SunTile
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719912169352114728, guid: 35a962c2018af87489193b586efaba11,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1719912169352114731, guid: 35a962c2018af87489193b586efaba11,
         type: 3}
