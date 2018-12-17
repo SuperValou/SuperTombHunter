@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
@@ -6,13 +9,40 @@ namespace Assets.Scripts
     {
         private const int Size = 4;
 
-        private readonly TileType[,] _internalGrid = new TileType[Size,Size];
-    
+        private readonly Tile[,] _internalGrid = new Tile[Size,Size];
+
+        public List<Cell> Cells { get; private set; }
+
         void Start()
         {
-            ClearGrid();
+            LoadCells();
         }
-    
+
+        private void LoadCells()
+        {
+            Cells = GetComponentsInChildren<Cell>().ToList();
+
+            if (Cells.Count != Size * Size)
+            {
+                throw new ArgumentException($"{nameof(Grid)} has {Cells.Count} cells instead of {Size * Size}.");
+            }
+
+            for (int i = 0; i < Cells.Count; i++)
+            {
+                var currentCell = Cells[i];
+
+                for (int j = i + 1; j < Cells.Count; j++)
+                {
+                    var otherCell = Cells[j];
+
+                    if (currentCell.Row == otherCell.Row && currentCell.Column == otherCell.Column)
+                    {
+                        throw new ArgumentException($"The {nameof(Grid)} has incorrect cells: {string.Join(", ", Cells)}.");
+                    }
+                }
+            }
+        }
+
         void Update()
         {
             // TODO check who wins
@@ -21,41 +51,33 @@ namespace Assets.Scripts
         /// <summary>
         /// When a player drop a tile on the grid
         /// </summary>
-        public void SetTileAt(ITile tile)
+        public void SetTile(Tile tile)
         {
-            if (!TileIsValid(tile))
+            if (!TryGetCoordinates(tile, out var row, out var column))
             {
                 return;
             }
 
-            _internalGrid[tile.Row, tile.Column] = tile.Type;
+            _internalGrid[row, column] = tile;
         }
 
-        /// <summary>
-        /// Reset the grid
-        /// </summary>
-        public void ClearGrid()
+        private bool TryGetCoordinates(Tile tile, out int row, out int column)
         {
-            for (int i = 0; i < Size; i++)
-            {
-                for (int j = 0; j < Size; j++)
-                {
-                    _internalGrid[i, j] = TileType.Empty;
-                }
-            }
+             // TODO
+            throw new System.NotImplementedException();
         }
-
+        
         /// <summary>
         /// Clear a tile on the grid
         /// </summary>
-        private void ClearTileAt(int row, int column)
+        private void ClearCellAt(int row, int column)
         {
             if (!CoordinatesAreValid(row, column))
             {
                 return;
             }
 
-            _internalGrid[row, column] = TileType.Empty;
+            // TODO
         }
 
         private bool CoordinatesAreValid(int row, int column)
@@ -63,28 +85,10 @@ namespace Assets.Scripts
             var areValid = row > 0 && row < Size && column > 0 && column < Size;
             if (!areValid)
             {
-                Debug.LogError($"Tile at 'row {row} column {column}' is out of bound");
+                Debug.LogError($"Cell at 'row {row} column {column}' is out of bound");
             }
 
             return areValid;
         }
-
-        private bool TileIsValid(ITile tile)
-        {
-            if (tile == null)
-            {
-                Debug.LogError("Tile was null!");
-                return false;
-            }
-
-            if (CoordinatesAreValid(tile.Row, tile.Column))
-            {
-                return true;
-            }
-
-            Debug.LogError($"{tile} is out of bound");
-            return false;
-        }
-
     }
 }

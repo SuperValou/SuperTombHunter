@@ -3,20 +3,16 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class Tile : MonoBehaviour, ITile
+    public class Tile : MonoBehaviour
     {
         private bool _isInit = false;
 
         private Grid _grid;
-
-        public int Row { get; private set; }
-
-        public int Column { get; private set; }
+        private readonly int _row;
+        private readonly int _column;
 
         public TileType Type { get; private set; } = TileType.Empty;
-
-        public bool CanBeHolded { get; private set; }
-
+        
         public TileState State { get; private set; }
         
         void Update()
@@ -60,8 +56,10 @@ namespace Assets.Scripts
             }
 
             State = TileState.Dropped;
-        }
 
+            _grid.SetTile(this);
+        }
+        
         void OnMouseDown()
         {
             Hold();
