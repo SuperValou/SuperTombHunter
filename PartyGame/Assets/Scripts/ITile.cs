@@ -6,10 +6,10 @@
 
         int Column { get; }
 
-        TileType Type { get; set; }
+        TileType Type { get; }
 
-        TileState State { get; set; }
+        TileState State { get; }
 
-        bool CanBeHolded { get; set; }
+        bool CanBeHolded { get; }
     }
 }
