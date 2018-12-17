@@ -11,5 +11,9 @@
         TileState State { get; }
 
         bool CanBeHolded { get; }
+
+        void Hold();
+
+        void Drop();
     }
 }

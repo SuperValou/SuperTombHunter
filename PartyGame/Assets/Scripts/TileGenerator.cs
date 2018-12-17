@@ -29,7 +29,7 @@ namespace Assets.Scripts
                 Debug.LogError($"You forgot to assing the {nameof(sunPrefab)} to the {nameof(TileGenerator)}.");
                 return;
             }
-
+            
             if (moonPrefab == null)
             {
                 Debug.LogError($"You forgot to assing the {nameof(moonPrefab)} to the {nameof(TileGenerator)}.");
@@ -44,13 +44,25 @@ namespace Assets.Scripts
             while (true)
             {
                 yield return new WaitForSeconds(period);
-                Tile selectedTile = _random.Next(1) == 0 
-                    ? moonPrefab 
-                    : sunPrefab;
 
-                var position = UnityEngine.Random.insideUnitCircle + Vector2.left * 2;
-                var clone = Instantiate(selectedTile, position, Quaternion.identity);
-                clone.SetGrid(grid);
+                var position = UnityEngine.Random.insideUnitCircle * 1.5f + Vector2.left * 4;
+                TileType selectedTileType;
+                Tile selectedPrefab;
+
+                if (_random.Next(0, 2) == 0)
+                {
+                    selectedPrefab = sunPrefab;
+                    selectedTileType = TileType.Sun;
+                }
+                else
+                {
+                    selectedPrefab = moonPrefab;
+                    selectedTileType = TileType.Moon;
+                }
+
+                var clone = Instantiate(selectedPrefab, position, Quaternion.identity);
+                clone.Initialize(grid, selectedTileType);
+                clone.gameObject.SetActive(true);
             }
         }
     }

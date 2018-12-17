@@ -5,6 +5,8 @@ namespace Assets.Scripts
 {
     public class Tile : MonoBehaviour, ITile
     {
+        private bool _isInit = false;
+
         private Grid _grid;
 
         public int Row { get; private set; }
@@ -16,25 +18,49 @@ namespace Assets.Scripts
         public bool CanBeHolded { get; private set; }
 
         public TileState State { get; private set; }
+        
+        void Update()
+        {
+            if (!_isInit)
+            {
+                Debug.LogError($"{this} is not initialized!");
+            }
+        }
 
         public void Initialize(Grid grid, TileType tileType)
         {
+            if (_isInit)
+            {
+                throw new InvalidOperationException($"{this} is already initialized.");
+            }
+
             _grid = grid ?? throw new ArgumentNullException(nameof(grid));
             Type = tileType;
             State = TileState.Dropped;
+            _isInit = true;
         }
 
         public void Hold()
         {
+            if (State == TileState.Holded)
+            {
+                Debug.LogError($"'{this}' is already {TileState.Holded}, cannot {nameof(Hold)} it.");
+                return;
+            }
+
             State = TileState.Holded;
         }
 
-        private void Update()
+        public void Drop()
         {
-            if (_grid == null)
+            if (State == TileState.Dropped)
             {
-                Debug.LogError("No grid assigned to the tile!");
+                Debug.LogError($"'{this}' is already {TileState.Dropped}, cannot {nameof(Drop)} it.");
+                return;
             }
+
+            State = TileState.Dropped;
         }
+
     }
 }
