@@ -1,88 +1,90 @@
-﻿using Assets.Scripts;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Grid : MonoBehaviour
+namespace Assets.Scripts
 {
-    private const int Size = 4;
+    public class Grid : MonoBehaviour
+    {
+        private const int Size = 4;
 
-    private readonly TileType[,] _internalGrid = new TileType[Size,Size];
+        private readonly TileType[,] _internalGrid = new TileType[Size,Size];
     
-    void Start()
-    {
-        ClearGrid();
-    }
-    
-    void Update()
-    {
-        // TODO check who wins
-    }
-    
-    /// <summary>
-    /// When a player drop a tile on the grid
-    /// </summary>
-    public void SetTileAt(ITile tile)
-    {
-        if (!TileIsValid(tile))
+        void Start()
         {
-            return;
+            ClearGrid();
+        }
+    
+        void Update()
+        {
+            // TODO check who wins
+        }
+    
+        /// <summary>
+        /// When a player drop a tile on the grid
+        /// </summary>
+        public void SetTileAt(ITile tile)
+        {
+            if (!TileIsValid(tile))
+            {
+                return;
+            }
+
+            _internalGrid[tile.Row, tile.Column] = tile.Type;
         }
 
-        _internalGrid[tile.Row, tile.Column] = tile.Type;
-    }
-
-    /// <summary>
-    /// Reset the grid
-    /// </summary>
-    public void ClearGrid()
-    {
-        for (int i = 0; i < Size; i++)
+        /// <summary>
+        /// Reset the grid
+        /// </summary>
+        public void ClearGrid()
         {
-            for (int j = 0; j < Size; j++)
+            for (int i = 0; i < Size; i++)
             {
-                _internalGrid[i, j] = TileType.Empty;
+                for (int j = 0; j < Size; j++)
+                {
+                    _internalGrid[i, j] = TileType.Empty;
+                }
             }
         }
-    }
 
-    /// <summary>
-    /// Clear a tile on the grid
-    /// </summary>
-    private void ClearTileAt(int row, int column)
-    {
-        if (!CoordinatesAreValid(row, column))
+        /// <summary>
+        /// Clear a tile on the grid
+        /// </summary>
+        private void ClearTileAt(int row, int column)
         {
-            return;
+            if (!CoordinatesAreValid(row, column))
+            {
+                return;
+            }
+
+            _internalGrid[row, column] = TileType.Empty;
         }
 
-        _internalGrid[row, column] = TileType.Empty;
-    }
-
-    private bool CoordinatesAreValid(int row, int column)
-    {
-        var areValid = row > 0 && row < Size && column > 0 && column < Size;
-        if (!areValid)
+        private bool CoordinatesAreValid(int row, int column)
         {
-            Debug.LogError($"Tile at 'row {row} column {column}' is out of bound");
+            var areValid = row > 0 && row < Size && column > 0 && column < Size;
+            if (!areValid)
+            {
+                Debug.LogError($"Tile at 'row {row} column {column}' is out of bound");
+            }
+
+            return areValid;
         }
 
-        return areValid;
-    }
-
-    private bool TileIsValid(ITile tile)
-    {
-        if (tile == null)
+        private bool TileIsValid(ITile tile)
         {
-            Debug.LogError("Tile was null!");
+            if (tile == null)
+            {
+                Debug.LogError("Tile was null!");
+                return false;
+            }
+
+            if (CoordinatesAreValid(tile.Row, tile.Column))
+            {
+                return true;
+            }
+
+            Debug.LogError($"{tile} is out of bound");
             return false;
         }
 
-        if (CoordinatesAreValid(tile.Row, tile.Column))
-        {
-            return true;
-        }
-
-        Debug.LogError($"{tile} is out of bound");
-        return false;
     }
-
 }
