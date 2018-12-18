@@ -31,7 +31,7 @@ public class MoveController : MonoBehaviour
         if (Input.GetButtonDown(GrabAxis))
         {
             Debug.Log("P" + JoystickNumber + " grabbing stuff");
-            player.GrabNearestTile();
+            player.GrabDropAction();
         }
     }
 

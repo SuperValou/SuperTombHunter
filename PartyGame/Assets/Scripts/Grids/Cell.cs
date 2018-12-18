@@ -12,6 +12,14 @@ namespace Assets.Scripts.Grids
         public int Column;
         private Tile _tile;
 
+        public bool Empty
+        {
+            get
+            {
+                return _tile == null;
+            }
+        }
+
         public Collider2D Collider { get; private set; }
         
         void Start()

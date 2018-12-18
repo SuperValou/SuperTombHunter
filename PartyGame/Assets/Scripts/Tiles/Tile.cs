@@ -14,6 +14,8 @@ namespace Assets.Scripts.Tiles
         private Grid _grid;
         private readonly int _row;
         private readonly int _column;
+
+        private Transform oldParent;
         
         public TileState State { get; private set; }
         
@@ -37,7 +39,7 @@ namespace Assets.Scripts.Tiles
             _isInit = true;
         }
 
-        public void Hold()
+        public void Hold(Transform newParent)
         {
             if (State == TileState.Held)
             {
@@ -46,9 +48,13 @@ namespace Assets.Scripts.Tiles
             }
 
             State = TileState.Held;
+            oldParent = gameObject.transform.parent;
+
+            gameObject.transform.parent = newParent;
+            gameObject.transform.position = newParent.position;
         }
 
-        public void Drop(IDropper dropper)
+        public void Drop(IDropper dropper, Transform cellTransform)
         {
             if (State == TileState.Dropped)
             {
@@ -57,6 +63,9 @@ namespace Assets.Scripts.Tiles
             }
 
             State = TileState.Dropped;
+            gameObject.transform.parent = oldParent;
+            gameObject.transform.position = cellTransform.position;
+            oldParent = null;
 
             var scoredPoint = _grid.DropTile(this);
             if (scoredPoint == 0)
@@ -69,7 +78,7 @@ namespace Assets.Scripts.Tiles
         
         void OnMouseDown()
         {
-            Hold();
+            Hold(gameObject.transform.parent);
         }
 
         void OnMouseDrag()
@@ -80,7 +89,7 @@ namespace Assets.Scripts.Tiles
 
         void OnMouseUpAsButton()
         {
-            Drop(new DummyDropper());
+            Drop(new DummyDropper(), gameObject.transform);
         }
     }
 }
