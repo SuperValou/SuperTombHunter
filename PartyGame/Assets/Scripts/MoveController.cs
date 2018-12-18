@@ -2,7 +2,7 @@
 
 public class MoveController : MonoBehaviour
 {
-    public int PlayerNumber;
+    public int JoystickNumber;
 
     public float speed = 5f;
 
@@ -10,29 +10,18 @@ public class MoveController : MonoBehaviour
     private string VerticalAxis;
     private string GrabAxis;
 
-    void Start()
+    public void InitAxis()
     {
-        InitAxis();
-        string[] joysticks = Input.GetJoystickNames();
-        for (int i = 0; i < joysticks.Length; i++)
-        {
-            if (joysticks[i].Length == 0) continue;
-            Debug.Log("joystick" + (i + 1) + " is a " + joysticks[i]);
-        }
-    }
-
-    private void InitAxis()
-    {
-        HorizontalAxis = "P" + PlayerNumber + "_Horizontal";
-        VerticalAxis = "P" + PlayerNumber + "_Vertical";
-        GrabAxis = "P" + PlayerNumber + "_Grab";
+        HorizontalAxis = "P" + JoystickNumber + "_Horizontal";
+        VerticalAxis = "P" + JoystickNumber + "_Vertical";
+        GrabAxis = "P" + JoystickNumber + "_Grab";
     }
 
     void Update()
     {
         if (Input.GetButtonDown(GrabAxis))
         {
-            Debug.Log("P" + PlayerNumber + " grabbing stuff");
+            Debug.Log("P" + JoystickNumber + " grabbing stuff");
         }
     }
 
@@ -40,6 +29,8 @@ public class MoveController : MonoBehaviour
     {
         float horizontal = Input.GetAxis(HorizontalAxis);
         float vertical = Input.GetAxis(VerticalAxis);
+
+        Debug.Log(HorizontalAxis + " " + horizontal);
 
         Vector3 movement = new Vector3(horizontal, vertical, 0f).normalized;
         Vector3 acceleration = movement * speed * Time.deltaTime;
