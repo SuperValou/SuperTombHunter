@@ -58,6 +58,12 @@ namespace Assets.Scripts.Tiles
 
             State = TileState.Sealed;
 
+            var sprite = this.GetComponent<SpriteRenderer>();
+            if (sprite != null)
+            {
+                sprite.sortingLayerName = "TileOnFloor";
+            }
+
             var scoredPoint = _grid.DropTile(this);
             if (scoredPoint == 0)
             {
