@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Grid = Assets.Scripts.Grids.Grid;
 
 public class PlayerSpawner : MonoBehaviour
 {
@@ -41,6 +42,8 @@ public class PlayerSpawner : MonoBehaviour
             player.InitAxis();
 
             Debug.Log("Spawning player with joystick " + player.JoystickNumber);
+
+            player.player.grid = grid;
         }
     }
 

@@ -10,9 +10,10 @@ using Grid = Assets.Scripts.Grids.Grid;
 
 public class Player : MonoBehaviour, IDropper
 {
-    public Transform heldTileLocation;
     public Grid grid;
     public SoundsManager soundsManager;
+
+    private Transform _heldTileLocation;
 
     private Tile _grabbableTile;
     
@@ -25,6 +26,13 @@ public class Player : MonoBehaviour, IDropper
         if (grid == null)
         {
             Debug.LogError("No grid attached to " + nameof(Player));
+        }
+
+        _heldTileLocation = this.GetComponentInChildren<Transform>()?.transform;
+        if (_heldTileLocation == null)
+        {
+            Debug.LogWarning("No Held point was found in the player. Falling back to player position!");
+            _heldTileLocation = this.transform;
         }
     }
 
@@ -43,6 +51,11 @@ public class Player : MonoBehaviour, IDropper
 
     void OnTriggerExit2D(Collider2D other)
     {
+        if (_grabbableTile?.gameObject == null)
+        {
+            return;
+        }
+
         if (other.gameObject == _grabbableTile.gameObject)
         {
             Debug.Log($"Tile {_grabbableTile} is not grabable anymore");
@@ -60,9 +73,9 @@ public class Player : MonoBehaviour, IDropper
 
     void FixedUpdate()
     {
-        if (_grabbableTile != null)
+        if (_heldTile != null)
         {
-            _grabbableTile.gameObject.transform.position = heldTileLocation.position;
+            _heldTile.gameObject.transform.position = _heldTileLocation.position;
         }
     }
 
@@ -83,7 +96,7 @@ public class Player : MonoBehaviour, IDropper
 
     private void Grab()
     {
-        _grabbableTile.Hold(heldTileLocation);
+        _grabbableTile.Hold(_heldTileLocation);
         _heldTile = _grabbableTile;
         _grabbableTile = null;
     }
