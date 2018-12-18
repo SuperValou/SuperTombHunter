@@ -39,13 +39,13 @@ namespace Assets.Scripts.Tiles
 
         public void Hold()
         {
-            if (State == TileState.Holded)
+            if (State == TileState.Held)
             {
-                Debug.LogError($"'{this}' is already {TileState.Holded}, cannot {nameof(Hold)} it.");
+                Debug.LogError($"'{this}' is already {TileState.Held}, cannot {nameof(Hold)} it.");
                 return;
             }
 
-            State = TileState.Holded;
+            State = TileState.Held;
         }
 
         public void Drop(IDropper dropper)
