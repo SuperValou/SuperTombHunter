@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using Assets.Scripts.Teams;
 using UnityEngine;
 
 namespace Assets.Scripts.UI
@@ -7,12 +9,18 @@ namespace Assets.Scripts.UI
     public class UiBar : MonoBehaviour
     {
         public SpriteRenderer[] numbers;
-
-        private Transform _tensLocation;
-        private Transform _unitsLocation;
-
+        
+        public Transform _tensLocation;
+        public Transform _unitsLocation;
+        
         private readonly Dictionary<int, SpriteRenderer> _tensSprites = new Dictionary<int, SpriteRenderer>();
         private readonly Dictionary<int, SpriteRenderer> _unitsSprites = new Dictionary<int, SpriteRenderer>();
+
+        public Transform _hotScoreLocation;
+        public Transform _coldScoreLocation;
+
+        private readonly Dictionary<int, SpriteRenderer> _coldScoreSprites = new Dictionary<int, SpriteRenderer>();
+        private readonly Dictionary<int, SpriteRenderer> _hotScoreSprites = new Dictionary<int, SpriteRenderer>();
 
         void Start()
         {
@@ -21,10 +29,41 @@ namespace Assets.Scripts.UI
                 var numberSprite = numbers[i];
 
                 var tensClone = Instantiate(numberSprite, _tensLocation.position, Quaternion.identity);
+                tensClone.gameObject.SetActive(false);
                 _tensSprites.Add(i, tensClone);
 
                 var unitsClone = Instantiate(numberSprite, _tensLocation.position, Quaternion.identity);
+                unitsClone.gameObject.SetActive(false);
                 _unitsSprites.Add(i, unitsClone);
+
+                var hotClone = Instantiate(numberSprite, _hotScoreLocation.position, Quaternion.identity);
+                hotClone.gameObject.SetActive(false);
+                _hotScoreSprites.Add(i, hotClone);
+
+                var coldClone = Instantiate(numberSprite, _hotScoreLocation.position, Quaternion.identity);
+                coldClone.gameObject.SetActive(false);
+                _coldScoreSprites.Add(i, coldClone);
+            }
+        }
+
+        public void SetScore(int score, TeamSide side)
+        {
+            var scoreToDisable = score - 1;
+
+            switch (side)
+            {
+                case TeamSide.Cold:
+                    _coldScoreSprites[scoreToDisable].gameObject.SetActive(false);
+                    _coldScoreSprites[score].gameObject.SetActive(true);
+                    break;
+
+                case TeamSide.Hot:
+                    _hotScoreSprites[scoreToDisable].gameObject.SetActive(false);
+                    _hotScoreSprites[score].gameObject.SetActive(true);
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(side), side, null);
             }
         }
 
