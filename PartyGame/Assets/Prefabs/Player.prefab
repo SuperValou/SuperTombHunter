@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1729598489329392200}
   - component: {fileID: 1165774396637329702}
   - component: {fileID: 5104421727248609237}
+  - component: {fileID: 7877397911476939776}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -92,6 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9513bb27e403dd4b83ba63dae828317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 7877397911476939776}
   JoystickNumber: 0
   speed: 5
 --- !u!50 &1165774396637329702
@@ -141,3 +143,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &7877397911476939776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1197311187604517643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 793ce01cf538c204aa097c8ea97a80ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

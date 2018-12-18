@@ -2,13 +2,22 @@
 
 public class MoveController : MonoBehaviour
 {
-    public int JoystickNumber;
+    public Player player;
 
+    public int JoystickNumber;
     public float speed = 5f;
 
     private string HorizontalAxis;
     private string VerticalAxis;
     private string GrabAxis;
+
+    private void Start()
+    {
+        if (player == null)
+        {
+            Debug.LogError($"No {nameof(Player)} is attached to {this}.");
+        }
+    }
 
     public void InitAxis()
     {
@@ -22,6 +31,7 @@ public class MoveController : MonoBehaviour
         if (Input.GetButtonDown(GrabAxis))
         {
             Debug.Log("P" + JoystickNumber + " grabbing stuff");
+            player.GrabNearestTile();
         }
     }
 
