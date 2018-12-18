@@ -1,17 +1,25 @@
-﻿using Assets.Scripts.Teams;
+﻿using System;
+using Assets.Scripts.Teams;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Tests
 {
-    public class DummyTeam : ITeam
+    public class DummyTeam : MonoBehaviour, ITeam
     {
-        public int Score { get; } = 0;
+        public Text ScoreDebugLabel;
+
+        public int Score { get; private set; } = 0;
 
         public void ScorePoints(int points)
         {
+            Score += points;
+            ScoreDebugLabel.text = Score.ToString();
         }
 
         public void ResetScore()
         {
+            throw new NotImplementedException();
         }
     }
 }
