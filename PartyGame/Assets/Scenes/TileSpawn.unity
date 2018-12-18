@@ -334,6 +334,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &674256568 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 941806560475032680, guid: bd0d944442ca2cc4a870663065e96122,
+    type: 3}
+  m_PrefabInstance: {fileID: 1979060338}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d867873d58f65f044afbf4cf6f5aacca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1413698543
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,7 +492,7 @@ PrefabInstance:
         type: 3}
       propertyPath: grid
       value: 
-      objectReference: {fileID: 1979060339}
+      objectReference: {fileID: 674256568}
     - target: {fileID: 6336900389551852947, guid: a823f5c2ae3311d4396274d6d7d3d75d,
         type: 3}
       propertyPath: spwanSlots.Array.data[0]
@@ -722,15 +734,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd0d944442ca2cc4a870663065e96122, type: 3}
---- !u!114 &1979060339 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3664506060753448087, guid: bd0d944442ca2cc4a870663065e96122,
-    type: 3}
-  m_PrefabInstance: {fileID: 1979060338}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d867873d58f65f044afbf4cf6f5aacca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

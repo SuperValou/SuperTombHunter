@@ -11,14 +11,19 @@ namespace Assets.Scripts.Grids
         // Start is called before the first frame update
         void Start()
         {
-            for (int x = 0; x < size; x++)
+            var sideLength = cellPrefab.Collider.bounds.size.x;
+            Debug.Log(sideLength);
+
+            for (int rowIndex = 0; rowIndex < size; rowIndex++)
             {
-                for (int y = 0; y < size; y++)
+                for (int columnIndex = 0; columnIndex < size; columnIndex++)
                 {
-                    var clone = Instantiate(cellPrefab, new Vector3(x, y, 0), Quaternion.identity);
-                    clone.name = "Cell x" + x + " y" + y;
-                    clone.Row = x;
-                    clone.Column = y;
+                    var position = new Vector3(rowIndex * sideLength, columnIndex * sideLength, 0);
+
+                    var clone = Instantiate(cellPrefab, position, Quaternion.identity);
+                    clone.name = "Cell x" + rowIndex + " y" + columnIndex;
+                    clone.Row = rowIndex;
+                    clone.Column = columnIndex;
                 }
             }
         }
