@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Teams;
 using UnityEngine;
 using Grid = Assets.Scripts.Grids.Grid;
 
@@ -11,6 +12,7 @@ public class PlayerSpawner : MonoBehaviour
 
     public Grid grid;
     public SoundsManager soundManager;
+    public TeamManager teamManager;
 
     void Start()
     {
@@ -45,6 +47,7 @@ public class PlayerSpawner : MonoBehaviour
             Debug.Log("Spawning player with joystick " + player.JoystickNumber);
 
             player.player.Initialize(grid, soundManager);
+            teamManager.AddPlayer(i, player.player);
         }
     }
 

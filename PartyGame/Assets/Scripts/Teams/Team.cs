@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.UI;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Teams
@@ -7,20 +8,20 @@ namespace Assets.Scripts.Teams
     {
         public TeamSide TeamSide;
 
-        public Text ScoreLabel;
+        public UiBar UiBar;
 
         public int Score { get; private set; }
 
         public void ScorePoints(int points)
         {
             Score += points;
-            ScoreLabel.text = Score.ToString();
+            UiBar.SetScore(Score, TeamSide);
         }
 
         public void ResetScore()
         {
             Score = 0;
-            ScoreLabel.text = Score.ToString();
+            UiBar.SetScore(Score, TeamSide);
         }
     }
 }
