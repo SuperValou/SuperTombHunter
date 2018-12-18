@@ -30,18 +30,22 @@ namespace Assets.Scripts.UI
 
                 var tensClone = Instantiate(numberSprite, _tensLocation.position, Quaternion.identity);
                 tensClone.gameObject.SetActive(false);
+                tensClone.gameObject.transform.SetParent(_tensLocation);
                 _tensSprites.Add(i, tensClone);
 
-                var unitsClone = Instantiate(numberSprite, _tensLocation.position, Quaternion.identity);
+                var unitsClone = Instantiate(numberSprite, _unitsLocation.position, Quaternion.identity);
                 unitsClone.gameObject.SetActive(false);
+                unitsClone.gameObject.transform.SetParent(_unitsLocation);
                 _unitsSprites.Add(i, unitsClone);
 
                 var hotClone = Instantiate(numberSprite, _hotScoreLocation.position, Quaternion.identity);
                 hotClone.gameObject.SetActive(false);
+                hotClone.gameObject.transform.SetParent(_hotScoreLocation);
                 _hotScoreSprites.Add(i, hotClone);
 
-                var coldClone = Instantiate(numberSprite, _hotScoreLocation.position, Quaternion.identity);
+                var coldClone = Instantiate(numberSprite, _coldScoreLocation.position, Quaternion.identity);
                 coldClone.gameObject.SetActive(false);
+                coldClone.gameObject.transform.SetParent(_coldScoreLocation);
                 _coldScoreSprites.Add(i, coldClone);
             }
         }
@@ -69,6 +73,8 @@ namespace Assets.Scripts.UI
 
         public void DisplaySeconds(int secondsToDisplay)
         {
+            UnityEngine.Debug.Log(secondsToDisplay + "s remaining");
+
             var ten = secondsToDisplay / 10;
             var unit = secondsToDisplay % 10;
 
