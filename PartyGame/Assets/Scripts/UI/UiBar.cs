@@ -48,7 +48,7 @@ namespace Assets.Scripts.UI
 
         public void SetScore(int score, TeamSide side)
         {
-            var scoreToDisable = score - 1;
+            var scoreToDisable = Math.Max(0, score - 1);
 
             switch (side)
             {
@@ -72,8 +72,8 @@ namespace Assets.Scripts.UI
             var ten = secondsToDisplay / 10;
             var unit = secondsToDisplay % 10;
 
-            var tenToDisable = ten + 9 % 10;
-            var unitToDisable = unit + 9 % 10;
+            var tenToDisable = (ten + 1) % 10;
+            var unitToDisable = (unit + 1) % 10;
 
             _tensSprites[tenToDisable].gameObject.SetActive(false);
             _tensSprites[ten].gameObject.SetActive(true);
