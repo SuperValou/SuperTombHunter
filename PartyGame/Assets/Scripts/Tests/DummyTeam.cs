@@ -5,16 +5,14 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Tests
 {
-    public class DummyTeam : MonoBehaviour, ITeam
+    public class DummyTeam : ITeam
     {
-        public Text ScoreDebugLabel;
-
         public int Score { get; private set; } = 0;
 
         public void ScorePoints(int points)
         {
             Score += points;
-            ScoreDebugLabel.text = Score.ToString();
+            Debug.Log("Points: " + Score);
         }
 
         public void ResetScore()

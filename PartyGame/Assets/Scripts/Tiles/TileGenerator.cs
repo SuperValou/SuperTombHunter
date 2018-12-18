@@ -46,22 +46,19 @@ namespace Assets.Scripts.Tiles
                 yield return new WaitForSeconds(period);
 
                 var position = UnityEngine.Random.insideUnitCircle * 1.5f + Vector2.left * 4;
-                TileType selectedTileType;
                 Tile selectedPrefab;
 
                 if (_random.Next(0, 2) == 0)
                 {
                     selectedPrefab = sunPrefab;
-                    selectedTileType = TileType.Sun;
                 }
                 else
                 {
                     selectedPrefab = moonPrefab;
-                    selectedTileType = TileType.Moon;
                 }
 
                 var clone = Instantiate(selectedPrefab, position, Quaternion.identity);
-                clone.Initialize(grid, selectedTileType);
+                clone.Initialize(grid);
                 clone.gameObject.SetActive(true);
             }
         }

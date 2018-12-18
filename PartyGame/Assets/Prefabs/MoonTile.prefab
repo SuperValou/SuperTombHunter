@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1719912169352114731}
   - component: {fileID: 1719912169352114730}
   - component: {fileID: 1719912169352114729}
+  - component: {fileID: 7760517998850058542}
   m_Layer: 0
   m_Name: MoonTile
   m_TagString: Untagged
@@ -106,3 +107,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 7.08, y: 7.08}
   m_EdgeRadius: 0
+--- !u!114 &7760517998850058542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1719912169352114728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87ffd356edf05a749b4fe48b658d3a23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 1

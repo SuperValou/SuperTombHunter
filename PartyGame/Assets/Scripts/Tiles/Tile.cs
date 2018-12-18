@@ -8,13 +8,12 @@ namespace Assets.Scripts.Tiles
 {
     public class Tile : MonoBehaviour
     {
-        private bool _isInit = false;
+        public TileType Type;
 
+        private bool _isInit = false;
         private Grid _grid;
         private readonly int _row;
         private readonly int _column;
-
-        public TileType Type { get; private set; } = TileType.Empty;
         
         public TileState State { get; private set; }
         
@@ -26,7 +25,7 @@ namespace Assets.Scripts.Tiles
             }
         }
 
-        public void Initialize(Grid grid, TileType tileType)
+        public void Initialize(Grid grid)
         {
             if (_isInit)
             {
@@ -34,7 +33,6 @@ namespace Assets.Scripts.Tiles
             }
 
             _grid = grid ?? throw new ArgumentNullException(nameof(grid));
-            Type = tileType;
             State = TileState.Dropped;
             _isInit = true;
         }
