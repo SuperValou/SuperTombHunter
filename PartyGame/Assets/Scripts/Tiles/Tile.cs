@@ -15,8 +15,6 @@ namespace Assets.Scripts.Tiles
         private readonly int _row;
         private readonly int _column;
 
-        private Transform oldParent;
-        
         public TileState State { get; private set; }
         
         void Update()
@@ -35,7 +33,7 @@ namespace Assets.Scripts.Tiles
             }
 
             _grid = grid ?? throw new ArgumentNullException(nameof(grid));
-            State = TileState.Dropped;
+            State = TileState.Grabbable;
             _isInit = true;
         }
 
@@ -52,13 +50,13 @@ namespace Assets.Scripts.Tiles
 
         public void Drop(IDropper dropper)
         {
-            if (State == TileState.Dropped)
+            if (State == TileState.Grabbable)
             {
-                Debug.LogError($"'{this}' is already {TileState.Dropped}, cannot {nameof(Drop)} it.");
+                Debug.LogError($"'{this}' is already {TileState.Grabbable}, cannot {nameof(Drop)} it.");
                 return;
             }
 
-            State = TileState.Dropped;
+            State = TileState.Grabbable;
 
             var scoredPoint = _grid.DropTile(this);
             if (scoredPoint == 0)

@@ -6,80 +6,47 @@ using Assets.Scripts.Teams;
 using Assets.Scripts.Tiles;
 using Assets.Scripts.Players;
 using Assets.Scripts.AudioManagement;
+using Grid = Assets.Scripts.Grids.Grid;
 
 public class Player : MonoBehaviour, IDropper
 {
-    public Transform TileHoldPoint;
+    public Transform heldTileLocation;
+    public Grid grid;
     public SoundsManager soundsManager;
 
-    private Tile GrabbableTile;
-    private GameObject GrabbableTileGo;
+    private Tile _grabbableTile;
+    
+    private Tile _heldTile;
+    
+    public ITeam Team { get; set; }
 
-    private Tile HeldTile;
-    private GameObject HeldTileGo;
-
-    private Cell CellUnderneath;
-    private GameObject CellUnderneathGo;
-
-    public ITeam Team
+    void Start()
     {
-        get
+        if (grid == null)
         {
-            throw new NotImplementedException();
+            Debug.LogError("No grid attached to " + nameof(Player));
         }
-    }
-
-    private void Start()
-    {
-        GrabbableTile = null;
-        GrabbableTileGo = null;
-
-        HeldTile = null;
-        HeldTileGo = null;
-
-        CellUnderneath = null;
-        CellUnderneathGo = null;
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Tile")
+        if (_heldTile == null && other.tag == "Tile")
         {
             Tile tile = other.GetComponent<Tile>();
-            if (tile.State == TileState.Dropped)
+            if (tile.State == TileState.Grabbable)
             {
-                GrabbableTile = tile;
-                GrabbableTileGo = other.gameObject;
-                Debug.Log("Tile " + GrabbableTileGo.name + " is grabable");
-            }
-        }
-
-        // might need to check a raycast instead of collider
-        if (other.tag == "Cell")
-        {
-            Cell cell = other.GetComponent<Cell>();
-            if (cell.Empty)
-            {
-                CellUnderneath = cell;
-                CellUnderneathGo = other.gameObject;
-                Debug.Log("On top of empty cell " + CellUnderneathGo.name);
+                _grabbableTile = tile;
+                Debug.Log($"Tile {tile} is grabable");
             }
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (GrabbableTileGo == other.gameObject)
+        if (other.gameObject == _grabbableTile.gameObject)
         {
-            Debug.Log("Tile " + GrabbableTileGo.name + " is no longer grabable");
-            GrabbableTile = null;
-            GrabbableTileGo = null;
-        }
-
-        if (CellUnderneathGo == other.gameObject)
-        {
-            CellUnderneath = null;
-            CellUnderneathGo = null;
+            Debug.Log($"Tile {_grabbableTile} is not grabable anymore");
+            _grabbableTile = null;
         }
     }
 
@@ -87,51 +54,44 @@ public class Player : MonoBehaviour, IDropper
     {
         Gizmos.color = Color.blue;
 
-        if (GrabbableTileGo != null)
-            Gizmos.DrawLine(transform.position, GrabbableTileGo.transform.position);
-
-        Gizmos.color = Color.red;
-
-        if (CellUnderneathGo != null)
-            Gizmos.DrawLine(transform.position, CellUnderneathGo.transform.position);
+        if (_grabbableTile != null)
+            Gizmos.DrawLine(transform.position, _grabbableTile.transform.position);
     }
 
     void FixedUpdate()
     {
-        if (HeldTileGo != null)
+        if (_grabbableTile != null)
         {
-            HeldTileGo.transform.position = TileHoldPoint.position;
+            _grabbableTile.gameObject.transform.position = heldTileLocation.position;
         }
     }
 
     public void GrabDropAction()
     {
-        if (HeldTile != null && CellUnderneath != null)
+        if (_heldTile == null && _grabbableTile != null)
         {
-            UnstickOfPlayer();
+            Grab();
             soundsManager.Play(SoundName.DropTile);
         }
 
-        if (HeldTile == null && GrabbableTile)
+        if (_heldTile != null && grid.CanDropHere(this.transform.position))
         {
-            StickTileToPlayer();
+            Drop();
             soundsManager.Play(SoundName.TakeTile);
         }
     }
 
-    private void StickTileToPlayer()
+    private void Grab()
     {
-        GrabbableTile.Hold(TileHoldPoint);
-        HeldTile = GrabbableTile;
-        HeldTileGo = GrabbableTileGo;
-        GrabbableTile = null;
-        GrabbableTileGo = null;
+        _grabbableTile.Hold(heldTileLocation);
+        _heldTile = _grabbableTile;
+        _grabbableTile = null;
     }
 
-    private void UnstickOfPlayer()
+    private void Drop()
     {
-        HeldTile.Drop(this);
-        HeldTile = null;
-        HeldTileGo = null;
+        _heldTile.transform.position = this.transform.position; // put the tile at the feet of the player
+        _heldTile.Drop(this);
+        _heldTile = null;
     }
 }

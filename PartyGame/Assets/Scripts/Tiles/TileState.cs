@@ -2,7 +2,8 @@
 {
     public enum TileState
     {
-        Dropped,
-        Held
+        Grabbable,
+        Held,
+        Dropped
     }
 }

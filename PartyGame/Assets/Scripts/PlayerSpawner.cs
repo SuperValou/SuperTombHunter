@@ -8,8 +8,15 @@ public class PlayerSpawner : MonoBehaviour
 
     public MoveController PlayerPrefab;
 
+    public Grid grid;
+
     void Start()
     {
+        if (grid == null)
+        {
+            Debug.LogError("Grid is not set to " + nameof(PlayerSpawner));
+        }
+
         string[] joysticks = Input.GetJoystickNames();
 
         for (int i = 0; i < joysticks.Length; i++)

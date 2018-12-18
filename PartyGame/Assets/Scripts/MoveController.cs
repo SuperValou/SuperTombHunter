@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Teams;
+using UnityEngine;
 
 public class MoveController : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class MoveController : MonoBehaviour
     private string VerticalAxis;
     private string GrabAxis;
 
-    private void Start()
+    void Start()
     {
         if (player == null)
         {

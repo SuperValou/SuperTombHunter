@@ -76,10 +76,12 @@ namespace Assets.Scripts.Grids
         /// </summary>
         public int DropTile(Tile tile)
         {
-            if (!TryGetCoordinates(tile, out var row, out var column))
+            if (!TryGetCoordinates(tile.transform.position, out var row, out var column))
             {
                 return 0;
             }
+
+            Debug.Log($"{tile.Type} dropping at row {row} col {column}");
 
             if (tile.Type == TileType.Empty)
             {
@@ -208,11 +210,11 @@ namespace Assets.Scripts.Grids
             return cellToClear.Count;
         }
         
-        private bool TryGetCoordinates(Tile tile, out int row, out int column)
+        private bool TryGetCoordinates(Vector3 position, out int row, out int column)
         {
             row = DefaultPosition;
             column = DefaultPosition;
-            var correspondingCell = _cells.Values.SelectMany(v => v.Values).FirstOrDefault(c => c.Collider.bounds.Contains(tile.transform.position));
+            var correspondingCell = _cells.Values.SelectMany(v => v.Values).FirstOrDefault(c => c.Collider.bounds.Contains(position));
             if (correspondingCell == null)
             {
                 return false;
@@ -225,8 +227,7 @@ namespace Assets.Scripts.Grids
             {
                 return false;
             }
-
-            Debug.Log($"{tile.Type} dropping at row {row} col {column}");
+            
             return true;
 
         }
@@ -254,6 +255,16 @@ namespace Assets.Scripts.Grids
             }
 
             return areValid;
+        }
+
+        public bool CanDropHere(Vector3 position)
+        {
+            if (!TryGetCoordinates(position, out var row, out var column))
+            {
+                return false;
+            }
+
+            return _internalGrid[row, column] == TileType.Empty;
         }
     }
 }
