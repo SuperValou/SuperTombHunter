@@ -48,13 +48,9 @@ namespace Assets.Scripts.Tiles
             }
 
             State = TileState.Held;
-            oldParent = gameObject.transform.parent;
-
-            gameObject.transform.parent = newParent;
-            gameObject.transform.position = newParent.position;
         }
 
-        public void Drop(IDropper dropper, Transform cellTransform)
+        public void Drop(IDropper dropper)
         {
             if (State == TileState.Dropped)
             {
@@ -63,9 +59,6 @@ namespace Assets.Scripts.Tiles
             }
 
             State = TileState.Dropped;
-            gameObject.transform.parent = oldParent;
-            gameObject.transform.position = cellTransform.position;
-            oldParent = null;
 
             var scoredPoint = _grid.DropTile(this);
             if (scoredPoint == 0)
@@ -89,7 +82,7 @@ namespace Assets.Scripts.Tiles
 
         void OnMouseUpAsButton()
         {
-            Drop(new DummyDropper(), gameObject.transform);
+            Drop(new DummyDropper());
         }
     }
 }

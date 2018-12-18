@@ -85,25 +85,33 @@ public class Player : MonoBehaviour, IDropper
     {
         Gizmos.color = Color.blue;
 
-        if (GrabbableTile != null)
+        if (GrabbableTileGo != null)
             Gizmos.DrawLine(transform.position, GrabbableTileGo.transform.position);
 
         Gizmos.color = Color.red;
 
-        if (GrabbableTile != null)
-            Gizmos.DrawLine(transform.position, CellUnderneath.transform.position);
+        if (CellUnderneathGo != null)
+            Gizmos.DrawLine(transform.position, CellUnderneathGo.transform.position);
+    }
+
+    void FixedUpdate()
+    {
+        if (HeldTileGo != null)
+        {
+            HeldTileGo.transform.position = TileHoldPoint.position;
+        }
     }
 
     public void GrabDropAction()
     {
+        if (HeldTile != null && CellUnderneath != null)
+        {
+            UnstickOfPlayer();
+        }
+
         if (HeldTile == null && GrabbableTile)
         {
             StickTileToPlayer();
-        }
-
-        if (HeldTile != null && CellUnderneath)
-        {
-            UnstickOfPlayer();
         }
     }
 
@@ -118,7 +126,7 @@ public class Player : MonoBehaviour, IDropper
 
     private void UnstickOfPlayer()
     {
-        HeldTile.Drop(this, CellUnderneathGo.transform);
+        HeldTile.Drop(this);
         HeldTile = null;
         HeldTileGo = null;
     }
