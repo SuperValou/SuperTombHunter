@@ -5,6 +5,7 @@
         TakeTile,
         DropTile,
         ScorePoint,
-        TileSpawn
+        TileSpawn,
+        WinGame
     }
 }

@@ -10,6 +10,7 @@ public class SoundsManager : MonoBehaviour
     public AudioClip dropTile;
     public AudioClip scorePoint;
     public AudioClip tileSpawn;
+    public AudioClip winGame;
     
     // Start is called before the first frame update
     void Start()
@@ -40,6 +41,10 @@ public class SoundsManager : MonoBehaviour
 
             case SoundName.TileSpawn:
                 _audioSource.PlayOneShot(tileSpawn);
+                break;
+
+            case SoundName.WinGame:
+                _audioSource.PlayOneShot(winGame);
                 break;
 
             default:
