@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.Tests;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -47,7 +48,7 @@ namespace Assets.Scripts
             State = TileState.Holded;
         }
 
-        public void Drop()
+        public void Drop(IDropper dropper)
         {
             if (State == TileState.Dropped)
             {
@@ -57,7 +58,7 @@ namespace Assets.Scripts
 
             State = TileState.Dropped;
 
-            _grid.SetTile(this);
+            var scoredPoint = _grid.DropTile(this);
         }
         
         void OnMouseDown()
@@ -73,7 +74,7 @@ namespace Assets.Scripts
 
         void OnMouseUpAsButton()
         {
-            Drop();
+            Drop(new DummyDropper());
         }
     }
 }

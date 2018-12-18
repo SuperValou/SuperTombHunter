@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 
 namespace Assets.Scripts
 {
     public class Grid : MonoBehaviour
     {
+        private const int DefaultPosition = -1;
         private const int Size = 4;
 
         private readonly Tile[,] _internalGrid = new Tile[Size,Size];
@@ -17,6 +20,28 @@ namespace Assets.Scripts
         {
             LoadCells();
         }
+
+        private void DebugGrid()
+        {
+            var builder = new StringBuilder();
+
+            for (int i = 0; i < Size; i++)
+            {
+                for (int j = 0; j < Size; j++)
+                {
+                    var tile = _internalGrid[i, j];
+                    builder.Append(tile?.Type ?? TileType.Empty);
+                    builder.Append(" | ");
+                }
+
+                builder.AppendLine();
+                builder.AppendLine("--------------------------------------");
+
+            }
+
+            Debug.Log(builder.ToString());
+        }
+
 
         private void LoadCells()
         {
@@ -42,29 +67,38 @@ namespace Assets.Scripts
                 }
             }
         }
-
-        void Update()
-        {
-            // TODO check who wins
-        }
-    
+        
         /// <summary>
-        /// When a player drop a tile on the grid
+        /// When a player drop a tile on the grid, return the number of scored points
         /// </summary>
-        public void SetTile(Tile tile)
+        public int DropTile(Tile tile)
         {
             if (!TryGetCoordinates(tile, out var row, out var column))
             {
-                return;
+                return 0;
             }
 
             _internalGrid[row, column] = tile;
+            DebugGrid();
+
+            // TODO check who wins
+            return 0;
         }
 
         private bool TryGetCoordinates(Tile tile, out int row, out int column)
         {
-             // TODO
-            throw new System.NotImplementedException();
+            row = DefaultPosition;
+            column = DefaultPosition;
+            var correspondingCell = this.Cells.FirstOrDefault(c => c.Collider.bounds.Contains(tile.transform.position));
+            if (correspondingCell == null)
+            {
+                return false;
+            }
+
+            row = correspondingCell.Row;
+            column = correspondingCell.Column;
+
+            return true;
         }
         
         /// <summary>

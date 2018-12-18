@@ -20,19 +20,19 @@ namespace Assets.Scripts
         {
             if (grid == null)
             {
-                Debug.LogError($"You forgot to assing the {nameof(Grid)} to the {nameof(TileGenerator)}.");
+                Debug.LogError($"You forgot to assign the {nameof(Grid)} to the {nameof(TileGenerator)}.");
                 return;
             }
 
             if (sunPrefab == null)
             {
-                Debug.LogError($"You forgot to assing the {nameof(sunPrefab)} to the {nameof(TileGenerator)}.");
+                Debug.LogError($"You forgot to assign the {nameof(sunPrefab)} to the {nameof(TileGenerator)}.");
                 return;
             }
             
             if (moonPrefab == null)
             {
-                Debug.LogError($"You forgot to assing the {nameof(moonPrefab)} to the {nameof(TileGenerator)}.");
+                Debug.LogError($"You forgot to assign the {nameof(moonPrefab)} to the {nameof(TileGenerator)}.");
                 return;
             }
 

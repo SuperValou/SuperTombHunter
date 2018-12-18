@@ -8,14 +8,14 @@ namespace Assets.Scripts
 
         public int Column;
 
-        private Collider2D _collider;
+        public Collider2D Collider { get; private set; }
 
         void Start()
         {
-            _collider = this.GetComponent<Collider2D>();
-            if (_collider == null)
+            Collider = this.GetComponent<Collider2D>();
+            if (Collider == null)
             {
-                Debug.LogError($"No {nameof(Collider)} is attached to {this}.");
+                Debug.LogError($"No {nameof(UnityEngine.Collider)} is attached to {this}.");
             }
         }
 
