@@ -5,10 +5,12 @@ using Assets.Scripts.Grids;
 using Assets.Scripts.Teams;
 using Assets.Scripts.Tiles;
 using Assets.Scripts.Players;
+using Assets.Scripts.AudioManagement;
 
 public class Player : MonoBehaviour, IDropper
 {
     public Transform TileHoldPoint;
+    public SoundsManager soundsManager;
 
     private Tile GrabbableTile;
     private GameObject GrabbableTileGo;
@@ -107,11 +109,13 @@ public class Player : MonoBehaviour, IDropper
         if (HeldTile != null && CellUnderneath != null)
         {
             UnstickOfPlayer();
+            soundsManager.Play(SoundName.DropTile);
         }
 
         if (HeldTile == null && GrabbableTile)
         {
             StickTileToPlayer();
+            soundsManager.Play(SoundName.TakeTile);
         }
     }
 
