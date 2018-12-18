@@ -30,8 +30,6 @@ public class MoveController : MonoBehaviour
         float horizontal = Input.GetAxis(HorizontalAxis);
         float vertical = Input.GetAxis(VerticalAxis);
 
-        Debug.Log(HorizontalAxis + " " + horizontal);
-
         Vector3 movement = new Vector3(horizontal, vertical, 0f).normalized;
         Vector3 acceleration = movement * speed * Time.deltaTime;
         gameObject.transform.Translate(acceleration);
