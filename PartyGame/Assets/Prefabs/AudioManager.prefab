@@ -44,10 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54dc1d2161e288d4faa01d2e96f264ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMusic: {fileID: 0}
-  takeTile: {fileID: 0}
-  dropTile: {fileID: 0}
-  scorePoint: {fileID: 0}
+  takeTile: {fileID: 8300000, guid: 3bf12afc40a5af74fae4765bc196127c, type: 3}
+  dropTile: {fileID: 8300000, guid: 539748c619b165c42827491ce0631aac, type: 3}
+  scorePoint: {fileID: 8300000, guid: cda2d5756af7d3d4dace434ebf6a7e28, type: 3}
   tileSpawn: {fileID: 0}
 --- !u!82 &5701949545996996461
 AudioSource:
@@ -59,11 +58,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 1
+  m_audioClip: {fileID: 8300000, guid: 3d7ade08cc12dc846913210bf524c609, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.599
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
