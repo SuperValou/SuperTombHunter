@@ -56,7 +56,7 @@ namespace Assets.Scripts.Tiles
                 return;
             }
 
-            State = TileState.Dropped;
+            State = TileState.Sealed;
 
             var scoredPoint = _grid.DropTile(this);
             if (scoredPoint == 0)

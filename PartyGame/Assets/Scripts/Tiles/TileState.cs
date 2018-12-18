@@ -4,6 +4,6 @@
     {
         Grabbable,
         Held,
-        Dropped
+        Sealed
     }
 }
