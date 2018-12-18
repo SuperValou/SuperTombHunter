@@ -1,8 +1,10 @@
 ﻿using System;
+using Assets.Scripts.Players;
 using Assets.Scripts.Tests;
 using UnityEngine;
+using Grid = Assets.Scripts.Grids.Grid;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Tiles
 {
     public class Tile : MonoBehaviour
     {

@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.Scripts.Tiles;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Grids
 {
     public class Grid : MonoBehaviour
     {

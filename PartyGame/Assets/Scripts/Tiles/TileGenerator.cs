@@ -1,9 +1,9 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Grid = Assets.Scripts.Grids.Grid;
 using Random = System.Random;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Tiles
 {
     public class TileGenerator : MonoBehaviour
     {
