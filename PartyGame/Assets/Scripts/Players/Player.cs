@@ -92,12 +92,14 @@ public class Player : MonoBehaviour, IDropper
         {
             Grab();
             _soundsManager.Play(SoundName.DropTile);
+            return;
         }
 
-        if (_heldTile != null && _grid.CanDropHere(this.transform.position))
+        if (_heldTile != null && _grid.CanDropHere(_heldTile.transform.position))
         {
             Drop();
             _soundsManager.Play(SoundName.TakeTile);
+            return;
         }
     }
 
@@ -110,7 +112,6 @@ public class Player : MonoBehaviour, IDropper
 
     private void Drop()
     {
-        _heldTile.transform.position = this.transform.position; // put the tile at the feet of the player
         _heldTile.Drop(this);
         _heldTile = null;
     }

@@ -49,6 +49,8 @@ public class PlayerSpawner : MonoBehaviour
             player.player.Initialize(grid, soundManager);
             teamManager.AddPlayer(i, player.player);
         }
+
+        teamManager.SetTeamPositions();
     }
 
     // Update is called once per frame

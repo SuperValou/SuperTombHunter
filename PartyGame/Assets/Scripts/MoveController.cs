@@ -40,7 +40,7 @@ public class MoveController : MonoBehaviour
     {
         if (Input.GetButtonDown(GrabAxis))
         {
-            Debug.Log("P" + JoystickNumber + " grabbing stuff");
+            Debug.Log("P" + JoystickNumber + " is performing an action");
             player.GrabDropAction();
         }
     }

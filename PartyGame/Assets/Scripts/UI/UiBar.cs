@@ -73,8 +73,6 @@ namespace Assets.Scripts.UI
 
         public void DisplaySeconds(int secondsToDisplay)
         {
-            UnityEngine.Debug.Log(secondsToDisplay + "s remaining");
-
             var ten = secondsToDisplay / 10;
             var unit = secondsToDisplay % 10;
 

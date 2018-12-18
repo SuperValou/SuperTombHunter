@@ -214,7 +214,18 @@ namespace Assets.Scripts.Grids
         {
             row = DefaultPosition;
             column = DefaultPosition;
-            var correspondingCell = _cells.Values.SelectMany(v => v.Values).FirstOrDefault(c => c.Collider.bounds.Contains(position));
+
+            var allCells = _cells.Values.SelectMany(v => v.Values);
+            Cell correspondingCell = null;
+            foreach (var cell in allCells)
+            {
+                if (cell.Collider.bounds.Contains(position))
+                {
+                    correspondingCell = cell;
+                    break;
+                }
+            }
+            
             if (correspondingCell == null)
             {
                 return false;
