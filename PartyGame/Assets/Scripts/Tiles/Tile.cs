@@ -61,6 +61,12 @@ namespace Assets.Scripts.Tiles
             State = TileState.Dropped;
 
             var scoredPoint = _grid.DropTile(this);
+            if (scoredPoint == 0)
+            {
+                return;
+            }
+
+            dropper.Team.ScorePoints(scoredPoint);
         }
         
         void OnMouseDown()

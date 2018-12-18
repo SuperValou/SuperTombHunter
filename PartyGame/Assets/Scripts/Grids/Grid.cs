@@ -79,9 +79,17 @@ namespace Assets.Scripts.Grids
             }
 
             _internalGrid[row, column] = tile;
+            
+            var scoredPoints = UpdateGrid();
             DebugGrid();
 
+            return scoredPoints;
+        }
+
+        private int UpdateGrid()
+        {
             // TODO check who wins
+
             return 0;
         }
 
