@@ -45,6 +45,7 @@ namespace Assets.Scripts.Grids
             }
 
             _tile = tile;
+            tile.transform.position = this.transform.position;
         }
 
         public void Clear()
