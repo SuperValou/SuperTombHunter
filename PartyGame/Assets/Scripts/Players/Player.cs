@@ -10,8 +10,8 @@ using Grid = Assets.Scripts.Grids.Grid;
 
 public class Player : MonoBehaviour, IDropper
 {
-    public Grid grid;
-    public SoundsManager soundsManager;
+    private Grid _grid;
+    private SoundsManager _soundsManager;
 
     private Transform _heldTileLocation;
 
@@ -21,9 +21,16 @@ public class Player : MonoBehaviour, IDropper
     
     public ITeam Team { get; set; }
 
+
+    public void Initialize(Grid grid, SoundsManager soundManager)
+    {
+        _grid = grid;
+        _soundsManager = soundManager;
+    }
+
     void Start()
     {
-        if (grid == null)
+        if (_grid == null)
         {
             Debug.LogError("No grid attached to " + nameof(Player));
         }
@@ -35,7 +42,7 @@ public class Player : MonoBehaviour, IDropper
             _heldTileLocation = this.transform;
         }
     }
-
+    
     void OnTriggerEnter2D(Collider2D other)
     {
         if (_heldTile == null && other.tag == "Tile")
@@ -84,13 +91,13 @@ public class Player : MonoBehaviour, IDropper
         if (_heldTile == null && _grabbableTile != null)
         {
             Grab();
-            soundsManager.Play(SoundName.DropTile);
+            _soundsManager.Play(SoundName.DropTile);
         }
 
-        if (_heldTile != null && grid.CanDropHere(this.transform.position))
+        if (_heldTile != null && _grid.CanDropHere(this.transform.position))
         {
             Drop();
-            soundsManager.Play(SoundName.TakeTile);
+            _soundsManager.Play(SoundName.TakeTile);
         }
     }
 

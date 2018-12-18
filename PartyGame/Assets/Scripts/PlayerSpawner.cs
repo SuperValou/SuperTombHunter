@@ -10,6 +10,7 @@ public class PlayerSpawner : MonoBehaviour
     public MoveController PlayerPrefab;
 
     public Grid grid;
+    public SoundsManager soundManager;
 
     void Start()
     {
@@ -43,7 +44,7 @@ public class PlayerSpawner : MonoBehaviour
 
             Debug.Log("Spawning player with joystick " + player.JoystickNumber);
 
-            player.player.grid = grid;
+            player.player.Initialize(grid, soundManager);
         }
     }
 
