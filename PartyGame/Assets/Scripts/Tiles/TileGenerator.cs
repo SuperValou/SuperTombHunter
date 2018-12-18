@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Linq;
+using Assets.Scripts.AudioManagement;
 using UnityEngine;
 using Grid = Assets.Scripts.Grids.Grid;
 using Random = System.Random;
@@ -8,7 +9,7 @@ namespace Assets.Scripts.Tiles
 {
     public class TileGenerator : MonoBehaviour
     {
-        private Random _random = new Random();
+        private readonly Random _random = new Random();
 
         public Tile sunPrefab;
         public Tile moonPrefab;
@@ -17,7 +18,9 @@ namespace Assets.Scripts.Tiles
 
         public TileSpawnSlot[] spwanSlots;
 
-        public int period = 3;
+        public float period = 2;
+
+        public SoundsManager soundsManager;
 
         void Start()
         {
@@ -70,10 +73,12 @@ namespace Assets.Scripts.Tiles
                 }
 
                 // instantiate
-                var instantiatedTile = Instantiate(selectedPrefab, selectedSpawnSlot.transform.position, Quaternion.identity);
+                var instantiatedTile = Instantiate(selectedPrefab, selectedSpawnSlot.SpawnLocation.position, Quaternion.identity);
                 instantiatedTile.Initialize(grid);
                 instantiatedTile.gameObject.SetActive(true);
                 selectedSpawnSlot.SetTile(instantiatedTile);
+
+                //soundsManager.Play(SoundName.TileSpawn);
             }
         }
     }

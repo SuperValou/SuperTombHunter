@@ -4,42 +4,49 @@ namespace Assets.Scripts.Tiles
 {
     public class TileSpawnSlot : MonoBehaviour
     {
+        private Collider2D _collider2D;
+
+        public Transform SpawnLocation;
+
         public bool IsAvailable => SpawnedTile == null;
 
         public Tile SpawnedTile { get; private set; }
 
         void Start()
         {
-            var col2D = this.GetComponent<Collider2D>();
-            if (col2D == null)
+            _collider2D = this.GetComponent<Collider2D>();
+            if (_collider2D == null)
             {
                 Debug.LogError("No collider on timespawnslot!");
                 return;
             }
 
-            if (!col2D.isTrigger)
+            if (!_collider2D.isTrigger)
             {
                 Debug.LogError("Collider on timespawnslot is not a Trigger");
                 return;
             }
         }
-        void OnTriggerExit2D(Collider2D other)
+
+        void Update()
         {
-            if (other.tag != "Tile")
+            if (SpawnedTile == null)
             {
                 return;
             }
 
-            Tile tile = other.GetComponent<Tile>();
-            
-            if (SpawnedTile == tile)
+            if (_collider2D.bounds.Contains(SpawnedTile.transform.position))
             {
-                SpawnedTile = null;
+                return;
             }
+
+            Debug.Log($"{SpawnedTile} left {this}");
+            SpawnedTile = null;
         }
 
         public void SetTile(Tile tile)
         {
+            Debug.Log("Oh, a tile: " + tile);
             SpawnedTile = tile;
         }
     }
