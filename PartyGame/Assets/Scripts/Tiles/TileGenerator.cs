@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using UnityEngine;
 using Grid = Assets.Scripts.Grids.Grid;
 using Random = System.Random;
@@ -13,6 +14,8 @@ namespace Assets.Scripts.Tiles
         public Tile moonPrefab;
 
         public Grid grid;
+
+        public TileSpawnSlot[] spwanSlots;
 
         public int period = 3;
 
@@ -45,9 +48,18 @@ namespace Assets.Scripts.Tiles
             {
                 yield return new WaitForSeconds(period);
 
-                var position = UnityEngine.Random.insideUnitCircle * 1.5f + Vector2.left * 4;
-                Tile selectedPrefab;
+                var availableSpawnSlots = spwanSlots.Where(s => s.IsAvailable).ToList();
+                if (availableSpawnSlots.Count == 0)
+                {
+                    continue;
+                }
 
+                // select slot
+                int spawnSlotIndex = _random.Next(availableSpawnSlots.Count);
+                var selectedSpawnSlot = availableSpawnSlots[spawnSlotIndex];
+
+                // select prefab
+                Tile selectedPrefab;
                 if (_random.Next(0, 2) == 0)
                 {
                     selectedPrefab = sunPrefab;
@@ -57,9 +69,11 @@ namespace Assets.Scripts.Tiles
                     selectedPrefab = moonPrefab;
                 }
 
-                var clone = Instantiate(selectedPrefab, position, Quaternion.identity);
-                clone.Initialize(grid);
-                clone.gameObject.SetActive(true);
+                // instantiate
+                var instantiatedTile = Instantiate(selectedPrefab, selectedSpawnSlot.transform.position, Quaternion.identity);
+                instantiatedTile.Initialize(grid);
+                instantiatedTile.gameObject.SetActive(true);
+                selectedSpawnSlot.SetTile(instantiatedTile);
             }
         }
     }
