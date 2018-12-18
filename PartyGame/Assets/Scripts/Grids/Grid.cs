@@ -12,9 +12,9 @@ namespace Assets.Scripts.Grids
         private const int DefaultPosition = -1;
         private const int Size = 4;
 
-        private readonly Tile[,] _internalGrid = new Tile[Size,Size];
+        private readonly TileType[,] _internalGrid = new TileType[Size,Size];
 
-        public List<Cell> Cells { get; private set; }
+        private readonly Dictionary<int, Dictionary<int, Cell>> _cells = new Dictionary<int, Dictionary<int, Cell>>();
 
         void Start()
         {
@@ -29,8 +29,8 @@ namespace Assets.Scripts.Grids
             {
                 for (int j = 0; j < Size; j++)
                 {
-                    var tile = _internalGrid[i, j];
-                    builder.Append(tile?.Type ?? TileType.Empty);
+                    var tileType = _internalGrid[i, j];
+                    builder.Append(tileType);
                     builder.Append(" | ");
                 }
 
@@ -45,26 +45,29 @@ namespace Assets.Scripts.Grids
 
         private void LoadCells()
         {
-            Cells = GetComponentsInChildren<Cell>().ToList();
+            var cells = GetComponentsInChildren<Cell>().ToList();
 
-            if (Cells.Count != Size * Size)
+            if (cells.Count != Size * Size)
             {
-                throw new ArgumentException($"{nameof(Grid)} has {Cells.Count} cells instead of {Size * Size}.");
+                throw new ArgumentException($"{nameof(Grid)} has {cells.Count} cells instead of {Size * Size}.");
             }
 
-            for (int i = 0; i < Cells.Count; i++)
+            foreach (var cell in cells)
             {
-                var currentCell = Cells[i];
-
-                for (int j = i + 1; j < Cells.Count; j++)
+                if (!_cells.ContainsKey(cell.Row))
                 {
-                    var otherCell = Cells[j];
-
-                    if (currentCell.Row == otherCell.Row && currentCell.Column == otherCell.Column)
-                    {
-                        throw new ArgumentException($"The {nameof(Grid)} has incorrect cells: {string.Join(", ", Cells)}.");
-                    }
+                    _cells.Add(cell.Row, new Dictionary<int, Cell>());
                 }
+
+                var row = _cells[cell.Row];
+
+                if (row.ContainsKey(cell.Column))
+                {
+                    DebugGrid();
+                    throw new ArgumentException($"The {nameof(Grid)} already contains a cell at row {cell.Row} col {cell.Column}.");
+                }
+
+                row[cell.Column] = cell;
             }
         }
         
@@ -78,8 +81,14 @@ namespace Assets.Scripts.Grids
                 return 0;
             }
 
-            _internalGrid[row, column] = tile;
-            
+            if (tile.Type == TileType.Empty)
+            {
+                Debug.LogWarning("Is it normal that the tile is Empty?");
+            }
+
+            _internalGrid[row, column] = tile.Type;
+            _cells[row][column].SetTile(tile);
+
             var scoredPoints = UpdateGrid();
             DebugGrid();
 
@@ -88,16 +97,122 @@ namespace Assets.Scripts.Grids
 
         private int UpdateGrid()
         {
-            // TODO check who wins
+            List<Tuple<int,int>> cellToClear = new List<Tuple<int, int>>();
 
-            return 0;
+            // Slash diagonal, from down left to up right /
+            var downLeftType = _internalGrid[0, 0];
+            if (downLeftType != TileType.Empty)
+            {
+                bool slashDiagIsFull = true;
+
+                for (int i = 1; i < Size; i++)
+                {
+                    slashDiagIsFull &= downLeftType == _internalGrid[i, i];
+                    if (!slashDiagIsFull)
+                    {
+                        break;
+                    }
+                }
+
+                if (slashDiagIsFull)
+                {
+                    for (int i = 0; i < Size; i++)
+                    {
+                        cellToClear.Add(new Tuple<int, int>(i, i));
+                    }
+                }
+            }
+
+            // Antislash diagonal, from up left to down right \
+            var upLeftType = _internalGrid[0, Size - 1];
+            if (upLeftType != TileType.Empty)
+            {
+                bool antislashDiagIsFull = true;
+
+                for (int i = 1; i < Size; i++)
+                {
+                    antislashDiagIsFull &= upLeftType == _internalGrid[i, Size - 1 - i];
+                    if (!antislashDiagIsFull)
+                    {
+                        break;
+                    }
+                }
+
+                if (antislashDiagIsFull)
+                {
+                    for (int i = 0; i < Size; i++)
+                    {
+                        cellToClear.Add(new Tuple<int, int>(i, Size - 1 - i));
+                    }
+                }
+            }
+
+            // Rows --
+            for (int rowIndex = 0; rowIndex < Size; rowIndex++)
+            {
+                var leftType = _internalGrid[rowIndex, 0];
+                if (leftType != TileType.Empty)
+                {
+                    bool lineIsFull = true;
+                    for (int j = 1; j < Size; j++)
+                    {
+                        lineIsFull &= leftType == _internalGrid[rowIndex, j];
+                        if (!lineIsFull)
+                        {
+                            break;
+                        }
+                    }
+
+                    if (lineIsFull)
+                    {
+                        for (int j = 0; j < Size; j++)
+                        {
+                            cellToClear.Add(new Tuple<int, int>(rowIndex, j));
+                        }
+                    }
+                }
+            }
+
+            // Columns |
+            for (int columnIndex = 0; columnIndex < Size; columnIndex++)
+            {
+                var topType = _internalGrid[0, columnIndex];
+                if (topType != TileType.Empty)
+                {
+                    bool columnIsFull = true;
+                    for (int i = 1; i < Size; i++)
+                    {
+                        columnIsFull &= topType == _internalGrid[i, columnIndex];
+                        if (!columnIsFull)
+                        {
+                            break;
+                        }
+                    }
+
+                    if (columnIsFull)
+                    {
+                        for (int i = 0; i < Size; i++)
+                        {
+                            cellToClear.Add(new Tuple<int, int>(i, columnIndex));
+                        }
+                    }
+                }
+            }
+
+            // clear scoring tiles
+            foreach (var tuple in cellToClear)
+            {
+                ClearCellAt(tuple.Item1, tuple.Item2);
+            }
+
+            return cellToClear.Count;
         }
-
+        
         private bool TryGetCoordinates(Tile tile, out int row, out int column)
         {
             row = DefaultPosition;
             column = DefaultPosition;
-            var correspondingCell = this.Cells.FirstOrDefault(c => c.Collider.bounds.Contains(tile.transform.position));
+            var correspondingCell = _cells.Values.SelectMany(v => v.Values).FirstOrDefault(c => c.Collider.bounds.Contains(tile.transform.position));
             if (correspondingCell == null)
             {
                 return false;
@@ -106,7 +221,14 @@ namespace Assets.Scripts.Grids
             row = correspondingCell.Row;
             column = correspondingCell.Column;
 
+            if (!CoordinatesAreValid(row, column))
+            {
+                return false;
+            }
+
+            Debug.Log($"{tile.Type} dropping at row {row} col {column}");
             return true;
+
         }
         
         /// <summary>
@@ -118,13 +240,14 @@ namespace Assets.Scripts.Grids
             {
                 return;
             }
-
-            // TODO
+            
+            _internalGrid[row, column] = TileType.Empty;
+            _cells[row][column].Clear();
         }
 
         private bool CoordinatesAreValid(int row, int column)
         {
-            var areValid = row > 0 && row < Size && column > 0 && column < Size;
+            var areValid = row >= 0 && row < Size && column >= 0 && column < Size;
             if (!areValid)
             {
                 Debug.LogError($"Cell at 'row {row} column {column}' is out of bound");
