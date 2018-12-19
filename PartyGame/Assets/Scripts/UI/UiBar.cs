@@ -48,6 +48,9 @@ namespace Assets.Scripts.UI
                 coldClone.gameObject.transform.SetParent(_coldScoreLocation);
                 _coldScoreSprites.Add(i, coldClone);
             }
+
+            SetScore(0, TeamSide.Cold);
+            SetScore(0, TeamSide.Hot);
         }
 
         public void SetScore(int score, TeamSide side)

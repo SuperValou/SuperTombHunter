@@ -14,7 +14,7 @@ namespace Assets.Scripts.Teams
 
         public void ScorePoints(int points)
         {
-            Score += points;
+            Score += points / 4;
             UiBar.SetScore(Score, TeamSide);
         }
 
