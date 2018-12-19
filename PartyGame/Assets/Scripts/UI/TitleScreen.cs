@@ -5,11 +5,22 @@ using UnityEngine.SceneManagement;
 
 public class TitleScreen : MonoBehaviour
 {
+    public SpriteRenderer tutoSprite;
+    
     void Update()
     {
         if (Input.GetButtonDown("MenuValid"))
         {
-            SceneManager.LoadScene(1);
+            Debug.Log(button);
+
+            if (tutoSprite.isVisible == false)
+            {
+                tutoSprite.gameObject.SetActive(true);
+            }
+            else
+            {
+                SceneManager.LoadScene(1);
+            }
         }
     }
 }
