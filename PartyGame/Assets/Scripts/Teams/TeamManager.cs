@@ -40,5 +40,17 @@ namespace Assets.Scripts.Teams
                 _coldTeam[i].transform.position = coldTeam.transform.position - Vector3.down * i;
             }
         }
+
+        public void SetWinner()
+        {
+            if (hotTeam.Score > coldTeam.Score)
+            {
+                PlayerPrefs.SetString("Winner", TeamSide.Hot.ToString());
+            }
+            else
+            {
+                PlayerPrefs.SetString("Winner", TeamSide.Cold.ToString());
+            }
+        }
     }
 }
