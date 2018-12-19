@@ -921,6 +921,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grid
       objectReference: {fileID: 0}
+    - target: {fileID: 941806560475032680, guid: bd0d944442ca2cc4a870663065e96122,
+        type: 3}
+      propertyPath: _soundsManager
+      value: 
+      objectReference: {fileID: 146362573}
     - target: {fileID: 6921868345795943500, guid: bd0d944442ca2cc4a870663065e96122,
         type: 3}
       propertyPath: m_LocalPosition.x

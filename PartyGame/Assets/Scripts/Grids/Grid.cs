@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Assets.Scripts.Tiles;
+using Assets.Scripts.AudioManagement;
 using UnityEngine;
 
 namespace Assets.Scripts.Grids
@@ -13,6 +14,8 @@ namespace Assets.Scripts.Grids
         private const int Size = 4;
 
         private readonly TileType[,] _internalGrid = new TileType[Size,Size];
+
+        public SoundsManager _soundsManager;
 
         private readonly Dictionary<int, Dictionary<int, Cell>> _cells = new Dictionary<int, Dictionary<int, Cell>>();
 
@@ -100,6 +103,11 @@ namespace Assets.Scripts.Grids
 
             var scoredPoints = UpdateGrid();
             DebugGrid();
+
+            if (scoredPoints > 0)
+            {
+                _soundsManager.Play(SoundName.ScorePoint);
+            }
 
             return scoredPoints;
         }
