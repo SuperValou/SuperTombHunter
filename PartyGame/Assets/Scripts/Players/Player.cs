@@ -78,7 +78,7 @@ public class Player : MonoBehaviour, IDropper
             Gizmos.DrawLine(transform.position, _grabbableTile.transform.position);
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (_heldTile != null)
         {
