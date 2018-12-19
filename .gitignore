@@ -1,4 +1,5 @@
 */Library
+*/Build
 *.sln
 *.csproj
 *.log
