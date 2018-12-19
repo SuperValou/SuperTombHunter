@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using UnityEngine;
+using Grid = Assets.Scripts.Grids.Grid;
 
 namespace Assets.Scripts.UI
 {
@@ -8,6 +9,7 @@ namespace Assets.Scripts.UI
         public int maxTime = 90;
 
         public UiBar uiBar;
+        public Grid grid;
 
         private Stopwatch _stopwatch = new Stopwatch();
         
@@ -23,6 +25,7 @@ namespace Assets.Scripts.UI
             if (timeToDisplay <= 0)
             {
                 timeToDisplay = 0;
+                grid.Enabled = false;
             }
 
             uiBar.DisplaySeconds(timeToDisplay);

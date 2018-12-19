@@ -16,6 +16,8 @@ namespace Assets.Scripts.Grids
 
         private readonly Dictionary<int, Dictionary<int, Cell>> _cells = new Dictionary<int, Dictionary<int, Cell>>();
 
+        public bool Enabled { get; set; } = true;
+
         void Start()
         {
             LoadCells();
@@ -76,6 +78,11 @@ namespace Assets.Scripts.Grids
         /// </summary>
         public int DropTile(Tile tile)
         {
+            if (!Enabled)
+            {
+                return 0;
+            }
+
             if (!TryGetCoordinates(tile.transform.position, out var row, out var column))
             {
                 return 0;
@@ -270,12 +277,12 @@ namespace Assets.Scripts.Grids
 
         public bool CanDropHere(Vector3 position)
         {
-            if (!TryGetCoordinates(position, out var row, out var column))
+            if (Enabled && TryGetCoordinates(position, out var row, out var column))
             {
-                return false;
+                return _internalGrid[row, column] == TileType.Empty;
             }
 
-            return _internalGrid[row, column] == TileType.Empty;
+            return false;
         }
     }
 }
