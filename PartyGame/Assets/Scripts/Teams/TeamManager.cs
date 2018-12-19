@@ -18,13 +18,13 @@ namespace Assets.Scripts.Teams
         {
             if (playerNumber % 2 == 0)
             {
-                player.Team = hotTeam;
-                _hotTeam.Add(player);
+                player.Team = coldTeam;
+                _coldTeam.Add(player);
             }
             else
             {
-                player.Team = coldTeam;
-                _coldTeam.Add(player);
+                player.Team = hotTeam;
+                _hotTeam.Add(player);
             }
         }
 
