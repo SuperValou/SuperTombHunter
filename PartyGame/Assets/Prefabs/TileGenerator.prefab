@@ -1,15 +1,25 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6336900389551852944
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1563598401471530}
+  m_IsPrefabAsset: 1
+--- !u!1 &1563598401471530
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6336900389551852946}
-  - component: {fileID: 6336900389551852947}
+  - component: {fileID: 4832295195200286}
+  - component: {fileID: 114289559235139904}
   m_Layer: 0
   m_Name: TileGenerator
   m_TagString: Untagged
@@ -17,13 +27,12 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6336900389551852946
+--- !u!4 &4832295195200286
 Transform:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6336900389551852944}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1563598401471530}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,26 +40,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6336900389551852947
+--- !u!114 &114289559235139904
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6336900389551852944}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1563598401471530}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91353a1a05bca8b41af301be35cd560a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sunPrefab: {fileID: 2037387913340249700, guid: 35a962c2018af87489193b586efaba11,
-    type: 3}
-  moonPrefab: {fileID: 7760517998850058542, guid: a726b3e9a6abe8e49b0f93e2d011291c,
-    type: 3}
+  sunPrefab: {fileID: 114667248010977196, guid: 9830b1ea14219db4996b9b94f9d2db55,
+    type: 2}
+  moonPrefab: {fileID: 114403682374060880, guid: a726b3e9a6abe8e49b0f93e2d011291c,
+    type: 2}
   grid: {fileID: 0}
   spwanSlots:
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
