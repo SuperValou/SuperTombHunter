@@ -92,14 +92,14 @@ public class Player : MonoBehaviour, IDropper
         if (_heldTile == null && _grabbableTile != null)
         {
             Grab();
-            _soundsManager.Play(SoundName.DropTile);
+            _soundsManager.Play(SoundName.TakeTile);
             return;
         }
 
         if (_heldTile != null && _grid.CanDropHere(_heldTile.transform.position))
         {
             Drop();
-            _soundsManager.Play(SoundName.TakeTile);
+            _soundsManager.Play(SoundName.DropTile);
             return;
         }
     }
