@@ -13,7 +13,7 @@ public class Player : MonoBehaviour, IDropper
     private Grid _grid;
     private SoundsManager _soundsManager;
 
-    private Transform _heldTileLocation;
+    public Transform _heldTileLocation;
 
     private Tile _grabbableTile;
     
@@ -33,13 +33,6 @@ public class Player : MonoBehaviour, IDropper
         if (_grid == null)
         {
             Debug.LogError("No grid attached to " + nameof(Player));
-        }
-
-        _heldTileLocation = this.GetComponentInChildren<Transform>()?.transform;
-        if (_heldTileLocation == null)
-        {
-            Debug.LogWarning("No Held point was found in the player. Falling back to player position!");
-            _heldTileLocation = this.transform;
         }
     }
     
