@@ -43,10 +43,7 @@ public class MoveController : MonoBehaviour
             Debug.Log("P" + JoystickNumber + " is performing an action");
             player.GrabDropAction();
         }
-    }
 
-    void FixedUpdate()
-    {
         float horizontal = Input.GetAxis(HorizontalAxis);
         float vertical = Input.GetAxis(VerticalAxis);
 
@@ -69,7 +66,7 @@ public class MoveController : MonoBehaviour
             animator.SetBool("moveDown", true);
             animator.SetBool("moveHorizontaly", false);
         }
-        
+
         if (Mathf.Abs(movement.x) > Mathf.Abs(movement.y))
         {
             animator.SetBool("moveUp", false);
