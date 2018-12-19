@@ -46,10 +46,11 @@ public class PlayerSpawner : MonoBehaviour
             player.InitAxis();
 
             Debug.Log("Spawning player " + playerCount + "with joystick " + player.JoystickNumber);
-            playerCount++;
 
             player.player.Initialize(grid, soundManager);
-            teamManager.AddPlayer(i, player.player);
+            teamManager.AddPlayer(playerCount, player.player);
+
+            playerCount++;
         }
 
         teamManager.SetTeamPositions();
