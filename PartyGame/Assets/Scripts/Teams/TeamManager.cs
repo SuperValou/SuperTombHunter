@@ -47,9 +47,13 @@ namespace Assets.Scripts.Teams
             {
                 PlayerPrefs.SetString("Winner", TeamSide.Hot.ToString());
             }
-            else
+            else if (hotTeam.Score < coldTeam.Score)
             {
                 PlayerPrefs.SetString("Winner", TeamSide.Cold.ToString());
+            }
+            else
+            {
+                PlayerPrefs.SetString("Winner", "Tie");
             }
         }
     }

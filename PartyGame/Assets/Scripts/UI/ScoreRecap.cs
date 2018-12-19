@@ -7,23 +7,15 @@ public class ScoreRecap : MonoBehaviour
 {
     public SpriteRenderer hotWinnerSprite;
     public SpriteRenderer coldWinnerSprite;
+    public SpriteRenderer tieSprite;
 
     // Start is called before the first frame update
     void Start()
     {
         var winner = PlayerPrefs.GetString("Winner");
-        if (winner == TeamSide.Hot.ToString())
-        {
-            coldWinnerSprite.gameObject.SetActive(false);
-        }
-        else
-        {
-            hotWinnerSprite.gameObject.SetActive(false);
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        
+        hotWinnerSprite.gameObject.SetActive(winner == TeamSide.Hot.ToString());
+        coldWinnerSprite.gameObject.SetActive(winner == TeamSide.Cold.ToString());
+        tieSprite.gameObject.SetActive(winner == "Tie");
     }
 }
