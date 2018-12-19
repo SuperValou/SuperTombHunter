@@ -1145,6 +1145,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5701949545996996462, guid: 4473eeafe03721f4ab7c277a54da8e31,
+        type: 3}
+      propertyPath: winGame
+      value: 
+      objectReference: {fileID: 8300000, guid: bf9d616158c99f14398ceef35ef7cba3, type: 3}
     - target: {fileID: 5701949545996996463, guid: 4473eeafe03721f4ab7c277a54da8e31,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1200,11 +1205,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5701949545996996462, guid: 4473eeafe03721f4ab7c277a54da8e31,
-        type: 3}
-      propertyPath: winGame
-      value: 
-      objectReference: {fileID: 8300000, guid: bf9d616158c99f14398ceef35ef7cba3, type: 3}
     - target: {fileID: 5701949545996996461, guid: 4473eeafe03721f4ab7c277a54da8e31,
         type: 3}
       propertyPath: m_audioClip
@@ -1473,6 +1473,11 @@ PrefabInstance:
       propertyPath: soundsManager
       value: 
       objectReference: {fileID: 146362573}
+    - target: {fileID: 6336900389551852947, guid: a823f5c2ae3311d4396274d6d7d3d75d,
+        type: 3}
+      propertyPath: period
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a823f5c2ae3311d4396274d6d7d3d75d, type: 3}
 --- !u!4 &6336900389490771298 stripped
