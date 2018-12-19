@@ -797,6 +797,30 @@ PrefabInstance:
       propertyPath: teamManager
       value: 
       objectReference: {fileID: 793227498}
+    - target: {fileID: 4958112209480879316, guid: b23fdadd1e8c48c4788840a2032e8cd0,
+        type: 3}
+      propertyPath: PlayersPrefab.Array.data[0]
+      value: 
+      objectReference: {fileID: 1729598489329392200, guid: 6f2a2e61a012d804fb1ed56cd637dd39,
+        type: 3}
+    - target: {fileID: 4958112209480879316, guid: b23fdadd1e8c48c4788840a2032e8cd0,
+        type: 3}
+      propertyPath: PlayersPrefab.Array.data[1]
+      value: 
+      objectReference: {fileID: 1729598489329392200, guid: ac3198df838a91744b2ee43bb67b6251,
+        type: 3}
+    - target: {fileID: 4958112209480879316, guid: b23fdadd1e8c48c4788840a2032e8cd0,
+        type: 3}
+      propertyPath: PlayersPrefab.Array.data[2]
+      value: 
+      objectReference: {fileID: 1729598489329392200, guid: 5ea9b5d20a5d6644d90c0aa914240321,
+        type: 3}
+    - target: {fileID: 4958112209480879316, guid: b23fdadd1e8c48c4788840a2032e8cd0,
+        type: 3}
+      propertyPath: PlayersPrefab.Array.data[3]
+      value: 
+      objectReference: {fileID: 1729598489329392200, guid: 18059800b52d28e4ea6c3d5de687d883,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b23fdadd1e8c48c4788840a2032e8cd0, type: 3}
 --- !u!4 &1463349482 stripped
