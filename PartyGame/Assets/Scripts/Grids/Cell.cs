@@ -52,7 +52,7 @@ namespace Assets.Scripts.Grids
         {
             if (_tile != null)
             {
-                Destroy(_tile.gameObject);
+                _tile.Destroy();
             }
         }
 

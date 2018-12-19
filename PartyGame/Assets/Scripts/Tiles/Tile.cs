@@ -16,12 +16,24 @@ namespace Assets.Scripts.Tiles
         private readonly int _column;
 
         public TileState State { get; private set; }
+
+        private Animator animator;
+
+        void Awake()
+        {
+            animator = GetComponent<Animator>();
+        }
         
         void Update()
         {
             if (!_isInit)
             {
                 Debug.LogError($"{this} is not initialized!");
+            }
+
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Destroyed"))
+            {
+                Destroy(gameObject);
             }
         }
 
@@ -71,6 +83,11 @@ namespace Assets.Scripts.Tiles
             }
 
             dropper.Team.ScorePoints(scoredPoint);
+        }
+
+        public void Destroy()
+        {
+            animator.SetBool("destroyed", true);
         }
         
         void OnMouseDown()
