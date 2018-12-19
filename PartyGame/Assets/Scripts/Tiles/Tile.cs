@@ -44,7 +44,8 @@ namespace Assets.Scripts.Tiles
                 throw new InvalidOperationException($"{this} is already initialized.");
             }
 
-            _grid = grid ?? throw new ArgumentNullException(nameof(grid));
+            if (grid == null) throw new ArgumentNullException(nameof(grid));
+            else _grid = grid;
             State = TileState.Grabbable;
             _isInit = true;
         }
