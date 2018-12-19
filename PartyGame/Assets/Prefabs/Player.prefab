@@ -160,7 +160,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 793ce01cf538c204aa097c8ea97a80ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TileHoldPoint: {fileID: 215184991779795094}
 --- !u!58 &2875866506267002432
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -176,7 +175,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.685
+  m_Radius: 0.8
 --- !u!95 &8327614468399693202
 Animator:
   serializedVersion: 3

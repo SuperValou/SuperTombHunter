@@ -82,7 +82,8 @@ public class Player : MonoBehaviour, IDropper
     {
         if (_heldTile != null)
         {
-            _heldTile.gameObject.transform.position = _heldTileLocation.position;
+            var position = new Vector3(_heldTileLocation.position.x, _heldTileLocation.position.y, 0);
+            _heldTile.gameObject.transform.position = position;
         }
     }
 
