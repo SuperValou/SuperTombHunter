@@ -11,8 +11,6 @@ public class TitleScreen : MonoBehaviour
     {
         if (Input.GetButtonDown("MenuValid"))
         {
-            Debug.Log(button);
-
             if (tutoSprite.isVisible == false)
             {
                 tutoSprite.gameObject.SetActive(true);
