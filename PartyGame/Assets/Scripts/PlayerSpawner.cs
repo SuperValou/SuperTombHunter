@@ -8,7 +8,7 @@ public class PlayerSpawner : MonoBehaviour
 {
     private const int MaxPlayerCount = 4;
 
-    public MoveController PlayerPrefab;
+    public MoveController[] PlayersPrefab = new MoveController[MaxPlayerCount];
 
     public Grid grid;
     public SoundsManager soundManager;
@@ -34,17 +34,19 @@ public class PlayerSpawner : MonoBehaviour
     private void SpawnPlayers()
     {
         string[] joysticks = Input.GetJoystickNames();
+        int playerCount = 0;
 
         for (int i = 0; i < joysticks.Length; i++)
         {
             if (joysticks[i].Length == 0) continue;
 
-            MoveController player = Instantiate(PlayerPrefab);
+            MoveController player = Instantiate(PlayersPrefab[playerCount]);
 
             player.JoystickNumber = i;
             player.InitAxis();
 
-            Debug.Log("Spawning player with joystick " + player.JoystickNumber);
+            Debug.Log("Spawning player " + playerCount + "with joystick " + player.JoystickNumber);
+            playerCount++;
 
             player.player.Initialize(grid, soundManager);
             teamManager.AddPlayer(i, player.player);
