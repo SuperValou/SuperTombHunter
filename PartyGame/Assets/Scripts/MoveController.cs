@@ -74,10 +74,13 @@ public class MoveController : MonoBehaviour
 
     void FlipSprite(float horizontal)
     {
-        bool flipSprite = spriteRenderer.flipX ? horizontal < 0.01f : horizontal > 0.01f;
-        if (flipSprite)
+        if (horizontal > 0)
         {
-            spriteRenderer.flipX = !spriteRenderer.flipX;
+            spriteRenderer.flipX = true;
+        }
+        else if (horizontal < 0)
+        {
+            spriteRenderer.flipX = false;
         }
     }
 }
