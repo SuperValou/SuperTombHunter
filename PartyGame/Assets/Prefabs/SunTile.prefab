@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114667248010977196}
   - component: {fileID: 95573196021239680}
   m_Layer: 0
-  m_Name: Suntile
+  m_Name: SunTile
   m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

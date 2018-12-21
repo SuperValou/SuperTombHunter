@@ -68,7 +68,7 @@ GameObject:
   - component: {fileID: 212234819391814160}
   - component: {fileID: 114963822550655584}
   m_Layer: 0
-  m_Name: UIBar
+  m_Name: UiBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

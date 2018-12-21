@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114403682374060880}
   - component: {fileID: 95147217881555786}
   m_Layer: 0
-  m_Name: Moontile
+  m_Name: MoonTile
   m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
