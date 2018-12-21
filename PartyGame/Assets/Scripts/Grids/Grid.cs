@@ -76,6 +76,63 @@ namespace Assets.Scripts.Grids
             }
         }
         
+        public bool CanDropHere(Vector3 position)
+        {
+            int row;
+            int column;
+            if (Enabled && TryGetCoordinates(position, out row, out column))
+            {
+                Debug.Log("Can drop here" + row + " " + column);
+                return _internalGrid[row, column] == TileType.Empty;
+            }
+
+            return false;
+        }
+
+        private bool TryGetCoordinates(Vector3 position, out int row, out int column)
+        {
+            row = DefaultPosition;
+            column = DefaultPosition;
+
+            var allCells = _cells.Values.SelectMany(v => v.Values).ToList();
+            Cell correspondingCell = null;
+            foreach (var cell in allCells)
+            {
+                if (cell.Collider.bounds.Contains(position))
+                {
+                    correspondingCell = cell;
+                    break;
+                }
+            }
+            Debug.Log(correspondingCell);
+
+            if (correspondingCell == null)
+            {
+                return false;
+            }
+
+            row = correspondingCell.Row;
+            column = correspondingCell.Column;
+
+            if (!CoordinatesAreValid(row, column))
+            {
+                return false;
+            }
+            
+            return true;
+        }
+
+        private bool CoordinatesAreValid(int row, int column)
+        {
+            var areValid = row >= 0 && row < Size && column >= 0 && column < Size;
+            if (!areValid)
+            {
+                Debug.LogError($"Cell at 'row {row} column {column}' is out of bound");
+            }
+
+            return areValid;
+        }
+        
         /// <summary>
         /// When a player drop a tile on the grid, return the number of scored points
         /// </summary>
@@ -227,40 +284,6 @@ namespace Assets.Scripts.Grids
             return cellToClear.Count;
         }
         
-        private bool TryGetCoordinates(Vector3 position, out int row, out int column)
-        {
-            row = DefaultPosition;
-            column = DefaultPosition;
-
-            var allCells = _cells.Values.SelectMany(v => v.Values).ToList();
-            Cell correspondingCell = null;
-            foreach (var cell in allCells)
-            {
-                if (cell.Collider.bounds.Contains(position))
-                {
-                    correspondingCell = cell;
-                    break;
-                }
-            }
-            Debug.Log(correspondingCell);
-
-            if (correspondingCell == null)
-            {
-                return false;
-            }
-
-            row = correspondingCell.Row;
-            column = correspondingCell.Column;
-
-            if (!CoordinatesAreValid(row, column))
-            {
-                return false;
-            }
-            
-            return true;
-
-        }
-        
         /// <summary>
         /// Clear a tile on the grid
         /// </summary>
@@ -271,32 +294,17 @@ namespace Assets.Scripts.Grids
                 return;
             }
             
+            _cells[row][column].StartClear();
+        }
+        
+        public void DestroyComplete(int row, int column)
+        {
+            if (!CoordinatesAreValid(row, column))
+            {
+                return;
+            }
+            
             _internalGrid[row, column] = TileType.Empty;
-            _cells[row][column].Clear();
-        }
-
-        private bool CoordinatesAreValid(int row, int column)
-        {
-            var areValid = row >= 0 && row < Size && column >= 0 && column < Size;
-            if (!areValid)
-            {
-                Debug.LogError($"Cell at 'row {row} column {column}' is out of bound");
-            }
-
-            return areValid;
-        }
-
-        public bool CanDropHere(Vector3 position)
-        {
-            int row;
-            int column;
-            if (Enabled && TryGetCoordinates(position, out row, out column))
-            {
-                Debug.Log("Can drop here" + row + " " + column);
-                return _internalGrid[row, column] == TileType.Empty;
-            }
-
-            return false;
         }
     }
 }

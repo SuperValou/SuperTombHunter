@@ -1,7 +1,8 @@
 ﻿using System;
+using UnityEngine;
+using Assets.Scripts.Grids;
 using Assets.Scripts.Players;
 using Assets.Scripts.Tests;
-using UnityEngine;
 using Grid = Assets.Scripts.Grids.Grid;
 
 namespace Assets.Scripts.Tiles
@@ -12,8 +13,9 @@ namespace Assets.Scripts.Tiles
 
         private bool _isInit = false;
         private Grid _grid;
-        private readonly int _row;
-        private readonly int _column;
+
+        private int _row;
+        private int _column;
 
         public TileState State { get; private set; }
 
@@ -33,6 +35,7 @@ namespace Assets.Scripts.Tiles
 
             if (animator.GetCurrentAnimatorStateInfo(0).IsName("Destroyed"))
             {
+                _grid.DestroyComplete(_row, _column);
                 Destroy(gameObject);
             }
         }
@@ -86,7 +89,14 @@ namespace Assets.Scripts.Tiles
             dropper.Team.ScorePoints(scoredPoint);
         }
 
-        public void Destroy()
+        public void BeOnCell(Cell _cell)
+        {
+            transform.position = _cell.transform.position;
+            _row = _cell.Row;
+            _column = _cell.Column;
+        }
+
+        public void StartDestroy()
         {
             animator.SetBool("destroyed", true);
         }

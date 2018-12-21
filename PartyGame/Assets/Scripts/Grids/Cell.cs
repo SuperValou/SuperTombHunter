@@ -37,20 +37,21 @@ namespace Assets.Scripts.Grids
             }
 
             _tile = tile;
-            tile.transform.position = this.transform.position;
+            _tile.BeOnCell(this);
         }
 
-        public void Clear()
+        public void StartClear()
         {
+            if (_tile == null) Debug.LogError($"Tile is null on cell [{Row},{Column}]. Cannot clear !");
             if (_tile != null)
             {
-                _tile.Destroy();
+                _tile.StartDestroy();
             }
         }
 
         public override string ToString()
         {
-            return "[" + this.name + " Row " + Row + " Col " + Column + "]";
+            return $"[{this.name} Row {Row} Column {Column}]";
         }
     }
 }
