@@ -53,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayersPrefab:
   - {fileID: 114478327263513490, guid: 6f2a2e61a012d804fb1ed56cd637dd39, type: 2}
-  - {fileID: 1729598489329392200, guid: 5ea9b5d20a5d6644d90c0aa914240321, type: 2}
+  - {fileID: 114478327263513490, guid: 5ea9b5d20a5d6644d90c0aa914240321, type: 2}
   - {fileID: 1729598489329392200, guid: ac3198df838a91744b2ee43bb67b6251, type: 2}
   - {fileID: 1729598489329392200, guid: 18059800b52d28e4ea6c3d5de687d883, type: 2}
   grid: {fileID: 0}
