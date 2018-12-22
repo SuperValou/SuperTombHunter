@@ -7,6 +7,7 @@ using Grid = Assets.Scripts.Grids.Grid;
 public class PlayerSpawner : MonoBehaviour
 {
     private const int MaxPlayerCount = 4;
+    private int playerCount = 0;
 
     public MoveController[] PlayersPrefab = new MoveController[MaxPlayerCount];
 
@@ -34,32 +35,33 @@ public class PlayerSpawner : MonoBehaviour
     private void SpawnPlayers()
     {
         string[] joysticks = Input.GetJoystickNames();
-        int playerCount = 0;
 
-        for (int i = 0; i < joysticks.Length; i++)
+        for (int i = 0; i < joysticks.Length && playerCount < MaxPlayerCount; i++)
         {
             if (joysticks[i].Length == 0) continue;
 
-            MoveController player = Instantiate(PlayersPrefab[playerCount]);
+            SpawnPlayer(ControllerType.Pad, i);
+            Debug.Log("Spawning player " + playerCount + " with joystick " + i);
+        }
 
-            player.JoystickNumber = i;
-            player.InitAxis();
-
-            Debug.Log("Spawning player " + playerCount + "with joystick " + player.JoystickNumber);
-
-            player.player.Initialize(grid, soundManager);
-            teamManager.AddPlayer(playerCount, player.player);
-
-            playerCount++;
+        if (playerCount < MaxPlayerCount)
+        {
+            SpawnPlayer(ControllerType.Keyboard);
+            Debug.Log("Spawning player " + playerCount + " with Keyboard");
         }
 
         teamManager.SetTeamPositions();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void SpawnPlayer(ControllerType type, int joystickNumber = 0)
     {
-        
+        MoveController player = Instantiate(PlayersPrefab[playerCount]);
+
+        player.InitAxis(type, joystickNumber);
+        player.player.Initialize(grid, soundManager);
+        teamManager.AddPlayer(playerCount, player.player);
+
+        playerCount++;
     }
 }
 

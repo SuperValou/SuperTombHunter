@@ -4,9 +4,11 @@ using UnityEngine;
 public class MoveController : MonoBehaviour
 {
     public Player player;
-
-    public int JoystickNumber;
     public float speed = 5f;
+
+    private string horizontalAxis;
+    private string verticalAxis;
+    private string grabAxis;
 
     private SpriteRenderer spriteRenderer;
     private Animator animator;
@@ -25,17 +27,31 @@ public class MoveController : MonoBehaviour
         }
     }
 
-    public void InitAxis() {}
+    public void InitAxis(ControllerType type, int joystickNumber = 0)
+    {
+        if (type == ControllerType.Pad)
+        {
+            horizontalAxis = "P" + joystickNumber + "_Horizontal";
+            verticalAxis = "P" + joystickNumber + "_Vertical";
+            grabAxis = "P" + joystickNumber + "_Grab";
+        }
+        else if (type == ControllerType.Keyboard)
+        {
+            horizontalAxis = "Keyboard_Horizontal";
+            verticalAxis = "Keyboard_Vertical";
+            grabAxis = "Keyboard_Grab";
+        }
+    }
 
     void Update()
     {
-        if (Input.GetButtonDown("P" + JoystickNumber + "_Grab"))
+        if (Input.GetButtonDown(grabAxis))
         {
             player.GrabDropAction();
         }
 
-        float horizontal = Input.GetAxis("P" + JoystickNumber + "_Horizontal");
-        float vertical = Input.GetAxis("P" + JoystickNumber + "_Vertical");
+        float horizontal = Input.GetAxis(horizontalAxis);
+        float vertical = Input.GetAxis(verticalAxis);
 
         Vector3 movement = new Vector3(horizontal, vertical, 0f).normalized;
         Vector3 acceleration = movement * speed * Time.deltaTime;
