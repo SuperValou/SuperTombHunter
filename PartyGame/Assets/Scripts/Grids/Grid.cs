@@ -140,14 +140,14 @@ namespace Assets.Scripts.Grids
         {
             if (!Enabled)
             {
-                return 0;
+                return -1;
             }
 
             int row;
             int column;
             if (!TryGetCoordinates(tile.transform.position, out row, out column))
             {
-                return 0;
+                return -1;
             }
 
             Debug.Log($"{tile.Type} dropping at row {row} col {column}");

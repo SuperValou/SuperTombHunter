@@ -64,14 +64,32 @@ namespace Assets.Scripts.Tiles
             State = TileState.Held;
         }
 
-        public void Drop(IDropper dropper)
+        public bool TryDrop(IDropper dropper)
         {
             if (State == TileState.Grabbable)
             {
                 Debug.LogError($"'{this}' is already {TileState.Grabbable}, cannot {nameof(Drop)} it.");
-                return;
+                return false;
             }
 
+            var scoredPoint = _grid.DropTile(this);
+            if (scoredPoint == -1)
+            {
+                return false;
+            }
+
+            Drop();
+
+            if (scoredPoint > 0)
+            {
+                dropper.Team.ScorePoints(scoredPoint);
+            }
+
+            return true;
+        }
+
+        private void Drop()
+        {
             State = TileState.Sealed;
 
             var sprite = this.GetComponent<SpriteRenderer>();
@@ -79,14 +97,6 @@ namespace Assets.Scripts.Tiles
             {
                 sprite.sortingLayerName = "TileOnFloor";
             }
-
-            var scoredPoint = _grid.DropTile(this);
-            if (scoredPoint == 0)
-            {
-                return;
-            }
-
-            dropper.Team.ScorePoints(scoredPoint);
         }
 
         public void BeOnCell(Cell _cell)
@@ -99,22 +109,6 @@ namespace Assets.Scripts.Tiles
         public void StartDestroy()
         {
             animator.SetBool("destroyed", true);
-        }
-        
-        void OnMouseDown()
-        {
-            Hold(gameObject.transform.parent);
-        }
-
-        void OnMouseDrag()
-        {
-            var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            gameObject.transform.position = new Vector3(pos.x, pos.y, this.transform.position.z);
-        }
-
-        void OnMouseUpAsButton()
-        {
-            Drop(new DummyDropper());
         }
     }
 }

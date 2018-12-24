@@ -106,7 +106,7 @@ public class Player : MonoBehaviour, IDropper
 
     private void Drop()
     {
-        _heldTile.Drop(this);
-        _heldTile = null;
+        bool dropped = _heldTile.TryDrop(this);
+        if (dropped) _heldTile = null;
     }
 }
