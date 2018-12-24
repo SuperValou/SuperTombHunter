@@ -12,13 +12,14 @@ public class Player : MonoBehaviour, IDropper
 {
     private Grid _grid;
     private SoundsManager _soundsManager;
+    private MoveController moveController;
 
     public Transform HeldTileLocation;
     public Transform DropTileLocation;
 
     private Tile _grabbableTile;
     
-    private Tile _heldTile;
+    public Tile _heldTile;
     
     public ITeam Team { get; set; }
 
@@ -27,6 +28,11 @@ public class Player : MonoBehaviour, IDropper
     {
         _grid = grid;
         _soundsManager = soundManager;
+    }
+
+    void Awake()
+    {
+        moveController = GetComponent<MoveController>();
     }
 
     void Start()
@@ -61,6 +67,20 @@ public class Player : MonoBehaviour, IDropper
         {
             Debug.Log($"Tile {_grabbableTile} is not grabable anymore");
             _grabbableTile = null;
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        var other = collision.collider;
+        if (other.tag == "Player")
+        {
+            Player otherPlayer = other.GetComponent<Player>();
+            if (moveController.IsDashing && _heldTile == null && otherPlayer._heldTile)
+            {
+                _heldTile = otherPlayer._heldTile;
+                otherPlayer._heldTile = null;
+            }
         }
     }
 

@@ -20,6 +20,10 @@ public class MoveController : MonoBehaviour
     private float _verticalInput;
 
     private int triggerDash;
+    public bool IsDashing
+    {
+        get { return triggerDash > 0; }
+    }
 
     private SpriteRenderer spriteRenderer;
     private Animator animator;
