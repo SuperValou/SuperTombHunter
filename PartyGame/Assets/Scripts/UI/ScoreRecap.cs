@@ -9,11 +9,7 @@ public class ScoreRecap : MonoBehaviour
     public SpriteRenderer hotWinnerSprite;
     public SpriteRenderer coldWinnerSprite;
     public SpriteRenderer tieSprite;
-    public SpriteRenderer tutoSprite;
 
-    private readonly string[] _buttons = new[] { "P0_Grab", "P1_Grab", "P2_Grab", "P3_Grab" };
-
-    // Start is called before the first frame update
     void Start()
     {
         var winner = PlayerPrefs.GetString("Winner");
@@ -25,14 +21,9 @@ public class ScoreRecap : MonoBehaviour
 
     void Update()
     {
-        foreach (var button in _buttons)
+        if (Input.GetButtonDown("MenuValid"))
         {
-            if (Input.GetButtonDown(button))
-            {
-                Debug.Log(button);
-                SceneManager.LoadScene(1);
-            }
-
+            SceneManager.LoadScene(1);
         }
     }
 }
