@@ -10,6 +10,9 @@ public class MoveController : MonoBehaviour
     private string verticalAxis;
     private string grabAxis;
 
+    private float _horizontalInput;
+    private float _verticalInput;
+
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     private Rigidbody2D rigidbody2d;
@@ -52,15 +55,12 @@ public class MoveController : MonoBehaviour
             player.GrabDropAction();
         }
 
-        float horizontal = Input.GetAxis(horizontalAxis);
-        float vertical = Input.GetAxis(verticalAxis);
+        _horizontalInput = Input.GetAxis(horizontalAxis);
+        _verticalInput = Input.GetAxis(verticalAxis);
+        
+        Vector3 movement = new Vector3(_horizontalInput, _verticalInput, 0f).normalized;
 
-        Vector3 movement = new Vector3(horizontal, vertical, 0f).normalized;
-        Vector3 acceleration = movement * speed * Time.deltaTime;
-        Vector3 newPos = gameObject.transform.position + acceleration;
-        rigidbody2d.MovePosition(newPos);
-
-        FlipSprite(horizontal);
+        FlipSprite(_horizontalInput);
 
         if (movement.y > 0.01f)
         {
@@ -89,6 +89,14 @@ public class MoveController : MonoBehaviour
             animator.SetBool("moveDown", false);
             animator.SetBool("moveHorizontaly", false);
         }
+    }
+
+    void FixedUpdate()
+    {
+        Vector3 movement = new Vector3(_horizontalInput, _verticalInput, 0f).normalized;
+        Vector3 acceleration = movement * speed * Time.deltaTime;
+        Vector3 newPos = gameObject.transform.position + acceleration;
+        rigidbody2d.MovePosition(newPos);
     }
 
     void FlipSprite(float horizontal)
