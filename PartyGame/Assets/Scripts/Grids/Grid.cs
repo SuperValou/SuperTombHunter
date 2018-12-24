@@ -160,14 +160,15 @@ namespace Assets.Scripts.Grids
             _internalGrid[row, column] = tile.Type;
             _cells[row][column].SetTile(tile);
 
-            var scoredPoints = UpdateGrid();
+            var completedLines = UpdateGrid();
             DebugGrid();
 
-            if (scoredPoints > 0)
+            if (completedLines > 0)
             {
                 _soundsManager.Play(SoundName.ScorePoint);
             }
 
+            int scoredPoints = completedLines == 0 ? 1 : completedLines * 4;
             return scoredPoints;
         }
 
@@ -281,7 +282,7 @@ namespace Assets.Scripts.Grids
                 ClearCellAt(tuple.Item1, tuple.Item2);
             }
 
-            return cellToClear.Count;
+            return cellToClear.Count / Size;
         }
         
         /// <summary>
