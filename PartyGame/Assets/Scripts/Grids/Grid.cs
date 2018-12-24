@@ -308,5 +308,31 @@ namespace Assets.Scripts.Grids
             
             _internalGrid[row, column] = TileType.Empty;
         }
+
+        void Update()
+        {
+            if (GridFull()) EmptyGrid();
+        }
+
+        private bool GridFull()
+        {
+            foreach (var tile in _internalGrid)
+            {
+                if (tile == TileType.Empty) return false;
+            }
+
+            return true;
+        }
+
+        private void EmptyGrid()
+        {
+            for (int i = 0; i < _cells.Count; i++)
+            {
+                for (int j = 0; j < _cells.Count; j++)
+                {
+                    _cells[i][j].StartClear();
+                }
+            }
+        }
     }
 }
