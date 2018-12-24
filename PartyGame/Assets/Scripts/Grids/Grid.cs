@@ -328,10 +328,8 @@ namespace Assets.Scripts.Grids
         {
             for (int i = 0; i < _cells.Count; i++)
             {
-                for (int j = 0; j < _cells.Count; j++)
-                {
-                    _cells[i][j].StartClear();
-                }
+                _cells[i][i].StartClear();
+                _cells[i][Size - 1 - i].StartClear();
             }
         }
     }
