@@ -3,15 +3,23 @@ using UnityEngine;
 
 public class MoveController : MonoBehaviour
 {
+    private const float DashTimeToRecover = 1.5f;
     public Player player;
     public float speed = 5f;
+    
+    public int dashFrame = 6;
+    public float dashSpeed = 10f;
+    public float dashCooltime;
 
     private string horizontalAxis;
     private string verticalAxis;
     private string grabAxis;
+    private string dashAxis;
 
     private float _horizontalInput;
     private float _verticalInput;
+
+    private int triggerDash;
 
     private SpriteRenderer spriteRenderer;
     private Animator animator;
@@ -36,9 +44,10 @@ public class MoveController : MonoBehaviour
     {
         if (type == ControllerType.Pad)
         {
-            horizontalAxis = "P" + joystickNumber + "_Horizontal";
-            verticalAxis = "P" + joystickNumber + "_Vertical";
-            grabAxis = "P" + joystickNumber + "_Grab";
+            horizontalAxis = $"P{joystickNumber}_Horizontal";
+            verticalAxis = $"P{joystickNumber}_Vertical";
+            grabAxis = $"P{joystickNumber}_Grab";
+            dashAxis = $"P{joystickNumber}_Dash";
         }
         else if (type == ControllerType.Keyboard)
         {
@@ -50,6 +59,8 @@ public class MoveController : MonoBehaviour
 
     void Update()
     {
+        dashCooltime -= Time.deltaTime;
+
         if (Input.GetButtonDown(grabAxis))
         {
             player.GrabDropAction();
@@ -59,6 +70,13 @@ public class MoveController : MonoBehaviour
         _verticalInput = Input.GetAxis(verticalAxis);
         
         Vector3 movement = new Vector3(_horizontalInput, _verticalInput, 0f).normalized;
+
+        if (Input.GetButtonDown(dashAxis))
+        {
+            Debug.Log("Dashing");
+            DashAction();
+        }
+
 
         FlipSprite(_horizontalInput);
 
@@ -91,10 +109,24 @@ public class MoveController : MonoBehaviour
         }
     }
 
+    private void DashAction()
+    {
+        if (dashCooltime > 0f) return;
+        dashCooltime = DashTimeToRecover;
+        triggerDash = dashFrame;
+    }
+
     void FixedUpdate()
     {
+        var frameSpeed = speed;
+        if (triggerDash > 0)
+        {
+            triggerDash--;
+            frameSpeed = dashSpeed;
+        }
+
         Vector3 movement = new Vector3(_horizontalInput, _verticalInput, 0f).normalized;
-        Vector3 acceleration = movement * speed * Time.deltaTime;
+        Vector3 acceleration = movement * frameSpeed * Time.deltaTime;
         Vector3 newPos = gameObject.transform.position + acceleration;
         rigidbody2d.MovePosition(newPos);
     }

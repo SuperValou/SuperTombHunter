@@ -196,6 +196,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 114278799046295888}
   speed: 5
+  dashFrame: 5
+  dashSpeed: 15
 --- !u!114 &114278799046295888
 MonoBehaviour:
   m_ObjectHideFlags: 1
