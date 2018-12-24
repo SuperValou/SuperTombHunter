@@ -83,17 +83,15 @@ public class Player : MonoBehaviour, IDropper
 
     public void GrabDropAction()
     {
-        if (_heldTile == null && _grabbableTile != null)
+        if (_heldTile == null && _grabbableTile != null && _grabbableTile.State == TileState.Grabbable)
         {
             Grab();
-            _soundsManager.Play(SoundName.TakeTile);
             return;
         }
 
         if (_heldTile != null && _grid.CanDropHere(_heldTile.transform.position))
         {
             Drop();
-            _soundsManager.Play(SoundName.DropTile);
             return;
         }
     }
@@ -103,11 +101,16 @@ public class Player : MonoBehaviour, IDropper
         _grabbableTile.Hold(HeldTileLocation);
         _heldTile = _grabbableTile;
         _grabbableTile = null;
+        _soundsManager.Play(SoundName.TakeTile);
     }
 
     private void Drop()
     {
         bool dropped = _heldTile.TryDrop(this);
-        if (dropped) _heldTile = null;
+        if (dropped)
+        {
+            _heldTile = null;
+            _soundsManager.Play(SoundName.DropTile);
+        }
     }
 }
