@@ -64,7 +64,7 @@ namespace Assets.Scripts.Tiles
             State = TileState.Held;
         }
 
-        public bool TryDrop(IDropper dropper)
+        public bool TryDrop(Player dropper)
         {
             if (State == TileState.Grabbable)
             {
@@ -72,7 +72,7 @@ namespace Assets.Scripts.Tiles
                 return false;
             }
 
-            var scoredPoint = _grid.DropTile(this);
+            var scoredPoint = _grid.DropTile(this, dropper.DropTileLocation.position);
             if (scoredPoint == -1)
             {
                 return false;

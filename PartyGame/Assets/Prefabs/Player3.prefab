@@ -207,7 +207,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 793ce01cf538c204aa097c8ea97a80ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _heldTileLocation: {fileID: 4561671207206864}
+  HeldTileLocation: {fileID: 4561671207206864}
+  DropTileLocation: {fileID: 4827308022146942}
 --- !u!212 &212366639665499558
 SpriteRenderer:
   m_ObjectHideFlags: 1

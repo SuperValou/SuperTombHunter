@@ -136,7 +136,7 @@ namespace Assets.Scripts.Grids
         /// <summary>
         /// When a player drop a tile on the grid, return the number of scored points
         /// </summary>
-        public int DropTile(Tile tile)
+        public int DropTile(Tile tile, Vector3 _dropPosition)
         {
             if (!Enabled)
             {
@@ -145,7 +145,7 @@ namespace Assets.Scripts.Grids
 
             int row;
             int column;
-            if (!TryGetCoordinates(tile.transform.position, out row, out column))
+            if (!TryGetCoordinates(_dropPosition, out row, out column))
             {
                 return -1;
             }

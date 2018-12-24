@@ -174,11 +174,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4768891185040384, guid: fd64a54fb38354c479dde8c2b4b3ab77, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4768891185040384, guid: fd64a54fb38354c479dde8c2b4b3ab77, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -0.04296875
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4768891185040384, guid: fd64a54fb38354c479dde8c2b4b3ab77, type: 2}
       propertyPath: m_LocalRotation.x
@@ -321,6 +321,61 @@ Transform:
   m_Father: {fileID: 1836580041}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1010215954 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1917660354586688, guid: 59877af63afe4b64d99020117b7afdd7,
+    type: 2}
+  m_PrefabInternal: {fileID: 1817673026}
+--- !u!61 &1010215955
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1010215954}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.000005722046, y: 4.8429756}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 19.2, y: 10.8}
+    newSize: {x: 19.2, y: 10.8}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.077423, y: 1.114049}
+  m_EdgeRadius: 0
+--- !u!61 &1010215956
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1010215954}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.000006198883, y: -4.8314986}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 19.2, y: 10.8}
+    newSize: {x: 19.2, y: 10.8}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.077424, y: 1.137003}
+  m_EdgeRadius: 0
 --- !u!1 &1024521509
 GameObject:
   m_ObjectHideFlags: 0
@@ -1068,15 +1123,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4995588059911644, guid: df2b306e886192944a53d335ec1b9678, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -1.7683859
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4995588059911644, guid: df2b306e886192944a53d335ec1b9678, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.5815918
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4995588059911644, guid: df2b306e886192944a53d335ec1b9678, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -0.04296875
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4995588059911644, guid: df2b306e886192944a53d335ec1b9678, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1108,6 +1163,22 @@ Prefab:
       propertyPath: UiBar
       value: 
       objectReference: {fileID: 1272377408}
+    - target: {fileID: 4997200592532272, guid: df2b306e886192944a53d335ec1b9678, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4156517535842020, guid: df2b306e886192944a53d335ec1b9678, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4156517535842020, guid: df2b306e886192944a53d335ec1b9678, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4997200592532272, guid: df2b306e886192944a53d335ec1b9678, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df2b306e886192944a53d335ec1b9678, type: 2}
   m_IsPrefabAsset: 0

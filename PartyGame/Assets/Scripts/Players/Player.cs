@@ -13,7 +13,8 @@ public class Player : MonoBehaviour, IDropper
     private Grid _grid;
     private SoundsManager _soundsManager;
 
-    public Transform _heldTileLocation;
+    public Transform HeldTileLocation;
+    public Transform DropTileLocation;
 
     private Tile _grabbableTile;
     
@@ -75,7 +76,7 @@ public class Player : MonoBehaviour, IDropper
     {
         if (_heldTile != null)
         {
-            var position = new Vector3(_heldTileLocation.position.x, _heldTileLocation.position.y, 0);
+            var position = new Vector3(HeldTileLocation.position.x, HeldTileLocation.position.y, 0);
             _heldTile.gameObject.transform.position = position;
         }
     }
@@ -99,7 +100,7 @@ public class Player : MonoBehaviour, IDropper
 
     private void Grab()
     {
-        _grabbableTile.Hold(_heldTileLocation);
+        _grabbableTile.Hold(HeldTileLocation);
         _heldTile = _grabbableTile;
         _grabbableTile = null;
     }

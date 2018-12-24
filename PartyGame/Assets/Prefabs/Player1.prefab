@@ -194,7 +194,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 793ce01cf538c204aa097c8ea97a80ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _heldTileLocation: {fileID: 4527111598663838}
+  HeldTileLocation: {fileID: 4527111598663838}
+  DropTileLocation: {fileID: 4165419752242756}
 --- !u!114 &114478327263513490
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -207,7 +208,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 114100852294394328}
-  JoystickNumber: 0
   speed: 5
 --- !u!212 &212509405428023346
 SpriteRenderer:
