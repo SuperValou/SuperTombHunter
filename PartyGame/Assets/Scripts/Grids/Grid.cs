@@ -80,9 +80,9 @@ namespace Assets.Scripts.Grids
         {
             int row;
             int column;
+
             if (Enabled && TryGetCoordinates(position, out row, out column))
             {
-                Debug.Log("Can drop here" + row + " " + column);
                 return _internalGrid[row, column] == TileType.Empty;
             }
 
@@ -104,9 +104,13 @@ namespace Assets.Scripts.Grids
                     break;
                 }
             }
-            Debug.Log(correspondingCell);
 
             if (correspondingCell == null)
+            {
+                return false;
+            }
+
+            if (!CoordinatesAreValid(correspondingCell.Row, correspondingCell.Column))
             {
                 return false;
             }
@@ -114,11 +118,6 @@ namespace Assets.Scripts.Grids
             row = correspondingCell.Row;
             column = correspondingCell.Column;
 
-            if (!CoordinatesAreValid(row, column))
-            {
-                return false;
-            }
-            
             return true;
         }
 
@@ -149,6 +148,8 @@ namespace Assets.Scripts.Grids
             {
                 return -1;
             }
+
+            if (_internalGrid[row, column] != TileType.Empty) return -1;
 
             Debug.Log($"{tile.Type} dropping at row {row} col {column}");
 
