@@ -12,11 +12,13 @@ public class MoveController : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
     private Animator animator;
+    private Rigidbody2D rigidbody2d;
 
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        rigidbody2d = GetComponent<Rigidbody2D>();
     }
 
     private void Start()
@@ -55,7 +57,8 @@ public class MoveController : MonoBehaviour
 
         Vector3 movement = new Vector3(horizontal, vertical, 0f).normalized;
         Vector3 acceleration = movement * speed * Time.deltaTime;
-        gameObject.transform.Translate(acceleration);
+        Vector3 newPos = gameObject.transform.position + acceleration;
+        rigidbody2d.MovePosition(newPos);
 
         FlipSprite(horizontal);
 
